@@ -3,36 +3,56 @@ cache:
   paths:
     - .m2/repository
 
-
 stages:
-  - build
-  - lint
+  - package
   - test
+  - java_quality
   - ng_quality
 
-maven-build:
+maven_build:
   image: maven:3-jdk-11
-  stage: build
-  script: mvn clean compile --also-make
+  stage: package
+  script: mvn clean package
+  only:
+    - main
+    - v1.0.0
+    - v1.0.1
+    - v1.0.2
+    - v1.0.3
+    - stage
+
   artifacts:
     paths:
       - /target/*.jar
 
-maven-lint:
-  image: maven:3-jdk-11
-  stage: lint
-  when: always
-  script:
-    - mvn pmd:check -X
-  artifacts:
-    paths:
-      - /target/*.jar
-
-java_test:
+test_coverage:
   image: maven:3-jdk-11
   stage: test
+  only:
+    - main
+    - v1.0.0
+    - v1.0.1
+    - v1.0.2
+    - v1.0.3
+    - stage
   script:
-    - mvn clean test --also-make
+    - mvn clean install
+    - cat aggregator/target/site/jacoco-aggregate/index.html
+
+
+java_lint:
+  image: maven:3-jdk-11
+  stage: java_quality
+  script:
+    - mvn -Dmaven.repo.local=/root/.m2/repository clean install -DskipTests=true -B
+    - mvn -Dmaven.repo.local=/root/.m2/repository pmd:check -B
+  only:
+    - main
+    - v1.0.0
+    - v1.0.1
+    - v1.0.2
+    - v1.0.3
+    - stage
 
 angular_lint:
   image: node:12-alpine
@@ -42,5 +62,10 @@ angular_lint:
     - cd webapp
     - npm install
     - npm run lint -- --format json
-
-
+  only:
+    - main
+    - v1.0.0
+    - v1.0.1
+    - v1.0.2
+    - v1.0.3
+    - stage
