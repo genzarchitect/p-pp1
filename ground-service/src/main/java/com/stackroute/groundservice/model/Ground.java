@@ -1,7 +1,14 @@
 package com.stackroute.groundservice.model;
 
+import jdk.jfr.Enabled;
+
+import javax.persistence.Entity;
+import javax.persistence.Id;
+
+@Entity
 public class Ground {
     private String groundName;
+    @Id
     private int groundId;
     private String groundAddress;
     private String groundEquipments;
