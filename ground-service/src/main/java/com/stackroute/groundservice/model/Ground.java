@@ -1,36 +1,41 @@
 package com.stackroute.groundservice.model;
 
 import jdk.jfr.Enabled;
+import org.springframework.data.annotation.Id;
+import org.springframework.data.mongodb.core.mapping.Document;
 
-import javax.persistence.Entity;
-import javax.persistence.Id;
 
-@Entity
+@Document
 public class Ground {
+    public enum Status {
+        OPEN, CLOSED, UNDER_MAINTENANCE;
+    }
     private String groundName;
     @Id
     private int groundId;
-    private String groundAddress;
+    private Address groundAddress;
     private String groundEquipments;
     private String groundImage;
     private String groundOwnerEmail;
-    private double pricePerSlot;
-    private String status;
+    private Status status;
     private String categories;
+    private String openingTime;
+    private String closingTime;
 
     public Ground() {
     }
 
-    public Ground(String groundName, int groundId, String groundAddress, String groundEquipments, String groundImage, String groundOwnerEmail, double pricePerSlot, String status, String categories) {
+    public Ground(String groundName, int groundId, Address groundAddress, String groundEquipments, String groundImage, String groundOwnerEmail, Status status, String categories, String openingTime, String closingTime) {
         this.groundName = groundName;
         this.groundId = groundId;
         this.groundAddress = groundAddress;
         this.groundEquipments = groundEquipments;
         this.groundImage = groundImage;
         this.groundOwnerEmail = groundOwnerEmail;
-        this.pricePerSlot = pricePerSlot;
         this.status = status;
         this.categories = categories;
+        this.openingTime = openingTime;
+        this.closingTime = closingTime;
     }
 
     public String getGroundName() {
@@ -49,11 +54,11 @@ public class Ground {
         this.groundId = groundId;
     }
 
-    public String getGroundAddress() {
+    public Address getGroundAddress() {
         return groundAddress;
     }
 
-    public void setGroundAddress(String groundAddress) {
+    public void setGroundAddress(Address groundAddress) {
         this.groundAddress = groundAddress;
     }
 
@@ -81,19 +86,11 @@ public class Ground {
         this.groundOwnerEmail = groundOwnerEmail;
     }
 
-    public double getPricePerSlot() {
-        return pricePerSlot;
-    }
-
-    public void setPricePerSlot(double pricePerSlot) {
-        this.pricePerSlot = pricePerSlot;
-    }
-
-    public String getStatus() {
+    public Status getStatus() {
         return status;
     }
 
-    public void setStatus(String status) {
+    public void setStatus(Status status) {
         this.status = status;
     }
 
@@ -105,18 +102,35 @@ public class Ground {
         this.categories = categories;
     }
 
+    public String getOpeningTime() {
+        return openingTime;
+    }
+
+    public void setOpeningTime(String openingTime) {
+        this.openingTime = openingTime;
+    }
+
+    public String getClosingTime() {
+        return closingTime;
+    }
+
+    public void setClosingTime(String closingTime) {
+        this.closingTime = closingTime;
+    }
+
     @Override
     public String toString() {
         return "Ground{" +
                 "groundName='" + groundName + '\'' +
                 ", groundId=" + groundId +
-                ", groundAddress='" + groundAddress + '\'' +
+                ", groundAddress=" + groundAddress +
                 ", groundEquipments='" + groundEquipments + '\'' +
                 ", groundImage='" + groundImage + '\'' +
                 ", groundOwnerEmail='" + groundOwnerEmail + '\'' +
-                ", pricePerSlot=" + pricePerSlot +
-                ", status='" + status + '\'' +
+                ", status=" + status +
                 ", categories='" + categories + '\'' +
+                ", openingTime='" + openingTime + '\'' +
+                ", closingTime='" + closingTime + '\'' +
                 '}';
     }
 }

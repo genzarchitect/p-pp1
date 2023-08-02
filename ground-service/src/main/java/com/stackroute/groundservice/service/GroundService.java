@@ -10,5 +10,11 @@ public interface GroundService {
     public List<Ground> getAllGround();
 
     public List<Ground> getGroundByCategory(String category);
+    public Ground getGroundById(int groundId);
+    public List<Ground> getGroundByOwnerEmail(String email);
+
+    public List<Ground> getAllOpenGround();
+    public Ground changeStatusofGround(Ground.Status status,int groundId);
+    List<Ground> getAllGroundByCity(String city);
 
 }

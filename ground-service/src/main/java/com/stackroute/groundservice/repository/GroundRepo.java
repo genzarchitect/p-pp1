@@ -1,12 +1,18 @@
 package com.stackroute.groundservice.repository;
 
 import com.stackroute.groundservice.model.Ground;
-import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.mongodb.repository.MongoRepository;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
 
 @Repository
-public interface GroundRepo extends JpaRepository<Ground,Integer> {
+public interface GroundRepo extends MongoRepository<Ground,Integer> {
     List<Ground> findByCategories(String categories);
+    List<Ground> findByGroundOwnerEmail(String email);
+    List<Ground> findByStatus(Ground.Status status);
+    List<Ground> findByGroundAddress_City(String city);
+
+
+
 }
