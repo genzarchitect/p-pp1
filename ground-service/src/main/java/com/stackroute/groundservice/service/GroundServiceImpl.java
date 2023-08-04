@@ -6,7 +6,11 @@ import com.stackroute.groundservice.model.Ground;
 import com.stackroute.groundservice.repository.GroundRepo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
 
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Paths;
 import java.util.List;
 import java.util.Optional;
 
@@ -15,6 +19,9 @@ public class GroundServiceImpl implements GroundService{
 
     @Autowired
     GroundRepo groundRepo;
+    @Autowired
+    GridFsService gridFsService;
+
     @Override
     public boolean addGround(Ground ground) {
         boolean check = false;
@@ -24,6 +31,23 @@ public class GroundServiceImpl implements GroundService{
         }
         return check;
     }
+
+    public String addImageToGround(int groundId, MultipartFile file) {
+        Ground ground = groundRepo.findById(groundId).orElse(null);
+        if (ground != null) {
+            try {
+                String imageId = gridFsService.store(file);
+                ground.setGroundImage(imageId);
+                groundRepo.save(ground);
+                return "Image added successfully to ground: " + groundId;
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+        return "Error adding image or ground not found";
+    }
+
+
 
     @Override
     public List<Ground> getAllGround() {
@@ -89,6 +113,16 @@ public class GroundServiceImpl implements GroundService{
            return allGroundsByCity;
        }
        throw new GroundNotFoundException("No ground found nearby");
+    }
+
+    public boolean deleteGround(int id) {
+        boolean check = true;
+        Optional<Ground> groundOptional = groundRepo.findById(id);
+        if(!groundOptional.isPresent()){
+           check = false;
+        }
+        groundRepo.deleteById(id);
+        return check;
     }
 
 
