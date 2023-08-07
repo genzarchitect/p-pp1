@@ -126,7 +126,7 @@ public class GroundController {
             InputStreamResource resource = gridFsService.retrieveFile(ground.getGroundImage());
             if (resource != null) {
                 return ResponseEntity.ok()
-                        .contentType(MediaType.IMAGE_JPEG)  // Replace with the actual content type of your image
+                        .contentType(MediaType.IMAGE_JPEG)
                         .body(resource);
             } else {
                 return new ResponseEntity<>("No image found for ground", HttpStatus.NOT_FOUND);
