@@ -5,12 +5,20 @@ import com.stackroute.groundservice.exception.GroundAlreadyExistsException;
 import com.stackroute.groundservice.exception.GroundNotFoundException;
 import com.stackroute.groundservice.exception.NoOpenGroundFound;
 import com.stackroute.groundservice.model.Ground;
+import com.stackroute.groundservice.service.GridFsService;
 import com.stackroute.groundservice.service.GroundService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.io.InputStreamResource;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
+
+
+import org.springframework.data.mongodb.gridfs.GridFsResource;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
 
 import java.io.IOException;
 import java.util.List;
@@ -23,6 +31,8 @@ public class GroundController {
 
     @Autowired
     GroundService groundService;
+    @Autowired
+    GridFsService gridFsService;
     @GetMapping("/welcome")
     public String welcome(){
         return "hello";
@@ -108,4 +118,23 @@ public class GroundController {
         }
         return responseEntity;
     }
+
+    @GetMapping("/ground/image/{groundId}")
+    public ResponseEntity<?> getGroundImage(@PathVariable int groundId) {
+        Ground ground = groundService.getGroundById(groundId);
+        if (ground != null) {
+            InputStreamResource resource = gridFsService.retrieveFile(ground.getGroundImage());
+            if (resource != null) {
+                return ResponseEntity.ok()
+                        .contentType(MediaType.IMAGE_JPEG)  // Replace with the actual content type of your image
+                        .body(resource);
+            } else {
+                return new ResponseEntity<>("No image found for ground", HttpStatus.NOT_FOUND);
+            }
+        } else {
+            return new ResponseEntity<>("No ground found with id: " + groundId, HttpStatus.NOT_FOUND);
+        }
+    }
+
+
 }
