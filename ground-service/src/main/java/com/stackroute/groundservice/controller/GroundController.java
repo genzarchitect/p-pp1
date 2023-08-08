@@ -136,5 +136,32 @@ public class GroundController {
         }
     }
 
+    @PostMapping("/status/{id}")
+    public ResponseEntity<?> changeStatus(@PathVariable("id") int id, @RequestParam("status") String statusStr) {
+        try {
+            Ground.Status status  = Ground.Status.valueOf(statusStr.toUpperCase());
+           Ground ground =  groundService.changeStatusofGround(status, id);
+            responseEntity = new ResponseEntity<>(ground, HttpStatus.OK);
+        }
+        catch (GroundNotFoundException e){
+           responseEntity = new  ResponseEntity<>("Ground Don't Exists", HttpStatus.BAD_REQUEST);
+        }
+        return responseEntity;
+    }
+
+    @PutMapping("/updateground/{id}")
+    public ResponseEntity<?> updateGround(@PathVariable("id") int id, @RequestBody Ground updatedGround) {
+        try {
+            Ground ground = groundService.updateGround(id, updatedGround);
+            if(ground != null){
+                responseEntity = new ResponseEntity<>(ground, HttpStatus.OK);
+            }
+        }
+        catch (GroundNotFoundException e){
+            responseEntity = new ResponseEntity<>("No Ground Found to Update", HttpStatus.BAD_REQUEST);
+        }
+        return responseEntity;
+    }
+
 
 }

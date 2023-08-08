@@ -125,5 +125,22 @@ public class GroundServiceImpl implements GroundService{
         return check;
     }
 
+    @Override
+    public Ground updateGround(int id, Ground updatedGround) {
+        Optional<Ground> groundOptional = groundRepo.findById(id);
+        if(!groundOptional.isPresent()){
+            throw new GroundNotFoundException("No ground found with this id");
+        }
+        Ground existingGround = groundOptional.get();
+        existingGround.setGroundName(updatedGround.getGroundName());
+        existingGround.setCategories(updatedGround.getCategories());
+        existingGround.setStatus(updatedGround.getStatus());
+        existingGround.setGroundOwnerEmail(updatedGround.getGroundOwnerEmail());
+        existingGround.setGroundAddress(updatedGround.getGroundAddress());
+        existingGround.setGroundImage(updatedGround.getGroundImage());
+        groundRepo.save(existingGround);
+        return existingGround;
+    }
+
 
 }

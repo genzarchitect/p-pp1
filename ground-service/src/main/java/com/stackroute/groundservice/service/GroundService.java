@@ -22,5 +22,5 @@ public interface GroundService {
     public Ground changeStatusofGround(Ground.Status status,int groundId);
     List<Ground> getAllGroundByCity(String city);
     boolean deleteGround(int id);
-
+   Ground updateGround(int id, Ground updatedGround);
 }
