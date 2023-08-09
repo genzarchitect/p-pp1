@@ -52,15 +52,18 @@ public class PaymentController {
         Order order = client.orders.create(ob);
 
         PaymentDetails paymentDetails = new PaymentDetails();
+        String amount = order.get("amount").toString();
+        int amount_int  = Integer.valueOf(amount)/100;
 
         paymentDetails.setOrderId(order.get("id").toString());
-        paymentDetails.setAmount(order.get("amount").toString());
+        paymentDetails.setAmount(String.valueOf(amount_int));
         paymentDetails.setReceipt(order.get("receipt").toString());
         paymentDetails.setStatus(order.get("status").toString());
         paymentDetails.setCurrency(order.get("currency").toString());
         paymentDetails.setLocalDateTime(LocalDateTime.now());
         paymentDetails.setBookingId(order.get("receipt").toString());
         paymentService.saveOnePayment(paymentDetails);
+      //  System.out.println(order.get("amount").toString());
         return order.toString();
     }
 
