@@ -4,36 +4,40 @@ import com.razorpay.Order;
 import com.razorpay.RazorpayClient;
 import com.razorpay.RazorpayException;
 import com.stackroute.paymentservice.exception.OrderCreationFailedException;
+import com.stackroute.paymentservice.model.PaymentDetails;
+import com.stackroute.paymentservice.repository.RazorpayDetailsRepository;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.json.JSONObject;
 import org.springframework.stereotype.Service;
 
+import java.util.Optional;
 import java.util.UUID;
 
 @Service
-public class RazorpayService {
-    @Value("${razorpay.api.key}")
-    private String apiKey;
+public class RazorpayService implements PaymentService {
 
-    @Value("${razorpay.api.secret}")
-    private String apiSecret;
+    @Autowired
+    RazorpayDetailsRepository paymentDetailsRepository;
 
-    public String createOrder(String amount) {
-        try {
-            RazorpayClient razorpay = new RazorpayClient(apiKey, apiSecret);
-            JSONObject options = new JSONObject();
-
-            options.put("amount", amount);
-            options.put("currency", "INR");
-
-            String receiptId = UUID.randomUUID().toString();
-            options.put("receipt", receiptId);
-            Order order = razorpay.orders.create(options);
-
-            return order.get("id");
-
-        } catch (RazorpayException e) {
-            throw new OrderCreationFailedException("Order Creation Failed");
-        }
+    @Override
+    public PaymentDetails saveOnePayment(PaymentDetails paymentDetails) {
+        return paymentDetailsRepository.save(paymentDetails);
     }
+
+    @Override
+    public PaymentDetails findById(String orderId) {
+        Optional<PaymentDetails> findById= paymentDetailsRepository.findById(orderId);
+        PaymentDetails paymentDetails=findById.get();
+        return paymentDetails;
+    }
+
+
+    @Override
+    public PaymentDetails updateOrderWithBookingId(String orderId, String bookingId) {
+        PaymentDetails payment= findById(orderId);
+        payment.setBookingId(bookingId);
+        return paymentDetailsRepository.save(payment);
+    }
+
 }
