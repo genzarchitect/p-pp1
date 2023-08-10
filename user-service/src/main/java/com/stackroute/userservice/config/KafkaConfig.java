@@ -20,11 +20,6 @@ import java.util.Map;
 
 @Configuration
 public class KafkaConfig {
-    /*@Bean
-    public NewTopic topic(){
-        return TopicBuilder.name("Arena")
-                .partitions(3)
-                .build();*/
     @Bean
     public ProducerFactory<String, UserDTO> producerFactory()
     {
