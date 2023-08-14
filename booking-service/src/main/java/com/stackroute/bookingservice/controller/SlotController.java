@@ -6,10 +6,12 @@ import com.stackroute.bookingservice.model.Slot;
 import com.stackroute.bookingservice.services.BookingService;
 import com.stackroute.bookingservice.services.SlotService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.Date;
 import java.util.List;
 
 @RestController
@@ -33,13 +35,14 @@ public class SlotController {
     @PostMapping("/addslot")
     public ResponseEntity<?> addSlot(@RequestBody Slot slot) throws SlotAlreadyFound{
         try{
-            String slots= slotService.addAllSlotTobookingdb(slot);
+            Slot slots= slotService.addAllSlotTobookingdb(slot);
             responseEntity=new ResponseEntity<>(slots,HttpStatus.CREATED);
         }catch(SlotAlreadyFound e){
             responseEntity=new ResponseEntity<>("Slot already found",HttpStatus.BAD_REQUEST);
         }
         return responseEntity;
     }
+
 
     @GetMapping("/getslot/{slotId}")
     public ResponseEntity<?> getSlotI(@PathVariable("slotId") int slotId){
@@ -52,6 +55,33 @@ public class SlotController {
         return responseEntity;
     }
 
+    @GetMapping("/getslotg/{groundId}")
+    public ResponseEntity<?> getSlotG(@PathVariable("groundId") int groundId){
+        try {
+            Slot gIslot = slotService.getSlotById(groundId);
+            responseEntity = new ResponseEntity<>(gIslot, HttpStatus.ACCEPTED);
+        }catch (GroundIdNotFound e){
+            responseEntity=new ResponseEntity<>("Ground id not found",HttpStatus.BAD_REQUEST);
+        }
+        return responseEntity;
+    }
+
+    @GetMapping("getslotd/{slotDate}")
+    public ResponseEntity<?> getSlotD(@PathVariable("slotDate") String slotDate){
+        try {
+            Slot sdslot = slotService.getSlotByDate(slotDate);
+            responseEntity = new ResponseEntity<>(sdslot, HttpStatus.ACCEPTED);
+        }catch (SlotDateNotFound e){
+            responseEntity=new ResponseEntity<>("Slot date not found",HttpStatus.BAD_REQUEST);
+        }
+        return responseEntity;
+    }
+
+//    @GetMapping("/checkMeetingRoomAvailability")
+//    public @ResponseBody ResponseDto checkMeetingRoomAvailability(@DateTimeFormat(pattern = "dd-M-yyyy hh:mm:ss") Date begin,
+//                                                                  @DateTimeFormat(pattern = "dd-M-yyyy hh:mm:ss") Date end, @RequestParam Integer capacity) {
+//        return meetingRoomServiceLocal.checkMeetingRoomAvailability(begin, end, capacity);
+//    }
     @PutMapping("/update/{slotId}")
     public ResponseEntity<?> updateSlot(@PathVariable("slotId") int slotId,@RequestBody Slot slot){
         try{

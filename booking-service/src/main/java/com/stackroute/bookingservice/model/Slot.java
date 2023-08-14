@@ -11,8 +11,10 @@ import java.util.Date;
 public class Slot {
 
     @Id
+
     private int slotId;
-    private Date slotDate;
+    private int groundId;
+    private String slotDate;
     private String slotStartTiming;
     private String slotEndTiming;
     private String status;
@@ -21,13 +23,22 @@ public class Slot {
     public Slot() {
     }
 
-    public Slot(int slotId, Date slotDate, String slotStartTiming, String slotEndTiming, String status, int numberOfPlayers) {
+    public Slot(int groundId, int slotId, String slotDate, String slotStartTiming, String slotEndTiming, String status, int numberOfPlayers) {
+        this.groundId = groundId;
         this.slotId = slotId;
         this.slotDate = slotDate;
         this.slotStartTiming = slotStartTiming;
         this.slotEndTiming = slotEndTiming;
         this.status = status;
         this.numberOfPlayers = numberOfPlayers;
+    }
+
+    public int getGroundId() {
+        return groundId;
+    }
+
+    public void setGroundId(int groundId) {
+        this.groundId = groundId;
     }
 
     public int getSlotId() {
@@ -38,11 +49,11 @@ public class Slot {
         this.slotId = slotId;
     }
 
-    public Date getSlotDate() {
+    public String getSlotDate() {
         return slotDate;
     }
 
-    public void setSlotDate(Date slotDate) {
+    public void setSlotDate(String slotDate) {
         this.slotDate = slotDate;
     }
 
@@ -81,10 +92,11 @@ public class Slot {
     @Override
     public String toString() {
         return "Slot{" +
-                "slotId=" + slotId +
-                ", slotDate=" + slotDate +
-                ", slotStartTiming=" + slotStartTiming +
-                ", slotEndTiming=" + slotEndTiming +
+                "groundId=" + groundId +
+                ", slotId=" + slotId +
+                ", slotDate='" + slotDate + '\'' +
+                ", slotStartTiming='" + slotStartTiming + '\'' +
+                ", slotEndTiming='" + slotEndTiming + '\'' +
                 ", status='" + status + '\'' +
                 ", numberOfPlayers=" + numberOfPlayers +
                 '}';

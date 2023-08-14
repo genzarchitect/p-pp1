@@ -26,12 +26,12 @@ public class BookingServiceImpl implements BookingService {
     }
 
     @Override
-    public String addAllBookingToBookingdb(Booking booking) {
-        boolean bookings = bookingRepo.save(booking) != null;
+    public Booking addAllBookingToBookingdb(Booking booking) throws BookingAlreadyFound {
+        boolean bookings = bookingRepo.existsById(booking.getBookingId());
         if (bookings) {
-            return "Booking is added Succesfully";
+            throw new BookingAlreadyFound("Booking is added succesfully");
         }
-        throw new BookingAlreadyFound("Booking Already Found");
+        return this.bookingRepo.save(booking);
     }
 
 

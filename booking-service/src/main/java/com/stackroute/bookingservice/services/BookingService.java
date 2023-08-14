@@ -9,9 +9,10 @@ import java.util.Optional;
 public interface BookingService {
     public List<Booking> getAllBookingFromRepo();
 
-    public String addAllBookingToBookingdb(Booking booking);
+    public Booking addAllBookingToBookingdb(Booking booking);
 
     public Booking getBookingById(int bookingId);
+
     public Booking getBookingByPlayerEmail(String playerEmail);
     public Booking getBookingByOwnerEmail(String groundOwnerEmail);
     public Booking deleteBookingById(int bookingId);

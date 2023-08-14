@@ -37,7 +37,7 @@ public class BookingController {
     @PostMapping("/addbooking")
     public ResponseEntity<?> addBooking(@RequestBody Booking booking){
         try{
-            String bookings= bookingService.addAllBookingToBookingdb(booking);
+            Booking bookings= bookingService.addAllBookingToBookingdb(booking);
             responseEntity=new ResponseEntity<>(bookings,HttpStatus.CREATED);
         }catch(BookingAlreadyFound e){
             responseEntity=new ResponseEntity<>("Booking already found",HttpStatus.BAD_REQUEST);

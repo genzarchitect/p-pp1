@@ -8,6 +8,7 @@ import com.stackroute.bookingservice.repository.SlotRepo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 
@@ -27,13 +28,12 @@ public class SlotServiceImpl implements SlotService{
     }
 
     @Override
-    public String addAllSlotTobookingdb(Slot slot) {
-        boolean slots = slotRepo.save(slot) != null;
+    public Slot addAllSlotTobookingdb(Slot slot) throws SlotAlreadyFound{
+        boolean slots = slotRepo.existsById(slot.getSlotId());
         if (slots) {
-            return "Slot is added succesfully";
+            throw new SlotAlreadyFound("Slot is added succesfully");
         }
-        throw new SlotAlreadyFound("Slot Already Found");
-
+        return this.slotRepo.save(slot);
     }
 
     @Override
@@ -45,7 +45,19 @@ public class SlotServiceImpl implements SlotService{
             return slot;
         }
 
-        throw new BookingIdNotFound("Booking to be deleted not Found");
+        throw new BookingIdNotFound("slot not found");
+    }
+
+    @Override
+    public Slot getSlotByDate(String slotDate) {
+        Optional<Slot> slots = slotRepo.findBySlotDate(slotDate);
+        if (slots.isPresent()) {
+            Slot slot = slots.get();
+            slotRepo.findBySlotDate(slotDate);
+            return slot;
+        }
+
+        throw new SlotDateNotFound("slot not found");
     }
 
     @Override
@@ -66,5 +78,8 @@ public class SlotServiceImpl implements SlotService{
         }
         throw new UpdateSlotNotFound("Please select the slot to update");
     }
+
+
+
 }
 
