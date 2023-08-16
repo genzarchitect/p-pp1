@@ -32,8 +32,8 @@ public class GroundServiceImpl implements GroundService{
         return check;
     }
 
-    public String addImageToGround(int groundId, MultipartFile file) {
-        Ground ground = groundRepo.findById(groundId).orElse(null);
+    public String addImageToGround(String groundId, MultipartFile file) {
+        Ground ground = groundRepo.findByGroundId(groundId);
         if (ground != null) {
             try {
                 String imageId = gridFsService.store(file);
@@ -68,10 +68,10 @@ public class GroundServiceImpl implements GroundService{
     }
 
     @Override
-    public Ground getGroundById(int id) {
-       Optional<Ground> groundOptional =  groundRepo.findById(id);
-       if(groundOptional.isPresent()){
-           return groundOptional.get();
+    public Ground getGroundById(String id) {
+       Ground ground =  groundRepo.findByGroundId(id);
+       if(ground!=null){
+           return ground;
        }
        throw new GroundNotFoundException("No ground exists with this id");
     }
@@ -115,29 +115,29 @@ public class GroundServiceImpl implements GroundService{
        throw new GroundNotFoundException("No ground found nearby");
     }
 
-    public boolean deleteGround(int id) {
+    public boolean deleteGround(String id) {
         boolean check = true;
-        Optional<Ground> groundOptional = groundRepo.findById(id);
-        if(!groundOptional.isPresent()){
+        Ground ground = groundRepo.findByGroundId(id);
+        if(ground!=null){
            check = false;
         }
-        groundRepo.deleteById(id);
+        groundRepo.deleteGroundsByGroundId(id);
         return check;
     }
 
     @Override
-    public Ground updateGround(int id, Ground updatedGround) {
-        Optional<Ground> groundOptional = groundRepo.findById(id);
-        if(!groundOptional.isPresent()){
+    public Ground updateGround(String id, Ground updatedGround) {
+        Ground existingGround = groundRepo.findByGroundId(id);
+        if(existingGround==null){
             throw new GroundNotFoundException("No ground found with this id");
         }
-        Ground existingGround = groundOptional.get();
         existingGround.setGroundName(updatedGround.getGroundName());
         existingGround.setCategories(updatedGround.getCategories());
         existingGround.setStatus(updatedGround.getStatus());
         existingGround.setGroundOwnerEmail(updatedGround.getGroundOwnerEmail());
         existingGround.setGroundAddress(updatedGround.getGroundAddress());
         existingGround.setGroundImage(updatedGround.getGroundImage());
+        existingGround.setPricePerHour(updatedGround.getPricePerHour());
         groundRepo.save(existingGround);
         return existingGround;
     }

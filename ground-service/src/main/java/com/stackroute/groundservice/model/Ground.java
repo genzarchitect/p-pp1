@@ -12,7 +12,7 @@ public class Ground {
     }
     private String groundName;
     @Id
-    private int groundId;
+    private String groundId;
     private Address groundAddress;
     private String groundEquipments;
     private String groundImage;
@@ -21,11 +21,12 @@ public class Ground {
     private String categories;
     private String openingTime;
     private String closingTime;
+    private int pricePerHour;
 
     public Ground() {
     }
 
-    public Ground(String groundName, int groundId, Address groundAddress, String groundEquipments, String groundImage, String groundOwnerEmail, Status status, String categories, String openingTime, String closingTime) {
+    public Ground(String groundName, String groundId, Address groundAddress, String groundEquipments, String groundImage, String groundOwnerEmail, Status status, String categories, String openingTime, String closingTime, int pricePerHour) {
         this.groundName = groundName;
         this.groundId = groundId;
         this.groundAddress = groundAddress;
@@ -36,6 +37,7 @@ public class Ground {
         this.categories = categories;
         this.openingTime = openingTime;
         this.closingTime = closingTime;
+        this.pricePerHour = pricePerHour;
     }
 
     public String getGroundName() {
@@ -46,11 +48,11 @@ public class Ground {
         this.groundName = groundName;
     }
 
-    public int getGroundId() {
+    public String getGroundId() {
         return groundId;
     }
 
-    public void setGroundId(int groundId) {
+    public void setGroundId(String groundId) {
         this.groundId = groundId;
     }
 
@@ -118,11 +120,19 @@ public class Ground {
         this.closingTime = closingTime;
     }
 
+    public int getPricePerHour() {
+        return pricePerHour;
+    }
+
+    public void setPricePerHour(int pricePerHour) {
+        this.pricePerHour = pricePerHour;
+    }
+
     @Override
     public String toString() {
         return "Ground{" +
                 "groundName='" + groundName + '\'' +
-                ", groundId=" + groundId +
+                ", groundId='" + groundId + '\'' +
                 ", groundAddress=" + groundAddress +
                 ", groundEquipments='" + groundEquipments + '\'' +
                 ", groundImage='" + groundImage + '\'' +
@@ -131,6 +141,7 @@ public class Ground {
                 ", categories='" + categories + '\'' +
                 ", openingTime='" + openingTime + '\'' +
                 ", closingTime='" + closingTime + '\'' +
+                ", pricePerHour=" + pricePerHour +
                 '}';
     }
 }

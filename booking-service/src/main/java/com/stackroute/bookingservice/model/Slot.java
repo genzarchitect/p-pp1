@@ -11,34 +11,25 @@ import java.util.Date;
 public class Slot {
 
     @Id
-
     private int slotId;
-    private int groundId;
+    private String groundId;
     private String slotDate;
     private String slotStartTiming;
     private String slotEndTiming;
-    private String status;
-    private int numberOfPlayers;
+    private String status; //i think there will be no status in the slot
+    private int numberOfPlayers;//why number of players
 
     public Slot() {
     }
 
-    public Slot(int groundId, int slotId, String slotDate, String slotStartTiming, String slotEndTiming, String status, int numberOfPlayers) {
-        this.groundId = groundId;
+    public Slot(int slotId, String groundId, String slotDate, String slotStartTiming, String slotEndTiming, String status, int numberOfPlayers) {
         this.slotId = slotId;
+        this.groundId = groundId;
         this.slotDate = slotDate;
         this.slotStartTiming = slotStartTiming;
         this.slotEndTiming = slotEndTiming;
         this.status = status;
         this.numberOfPlayers = numberOfPlayers;
-    }
-
-    public int getGroundId() {
-        return groundId;
-    }
-
-    public void setGroundId(int groundId) {
-        this.groundId = groundId;
     }
 
     public int getSlotId() {
@@ -47,6 +38,14 @@ public class Slot {
 
     public void setSlotId(int slotId) {
         this.slotId = slotId;
+    }
+
+    public String getGroundId() {
+        return groundId;
+    }
+
+    public void setGroundId(String groundId) {
+        this.groundId = groundId;
     }
 
     public String getSlotDate() {
@@ -92,8 +91,8 @@ public class Slot {
     @Override
     public String toString() {
         return "Slot{" +
-                "groundId=" + groundId +
-                ", slotId=" + slotId +
+                "slotId=" + slotId +
+                ", groundId='" + groundId + '\'' +
                 ", slotDate='" + slotDate + '\'' +
                 ", slotStartTiming='" + slotStartTiming + '\'' +
                 ", slotEndTiming='" + slotEndTiming + '\'' +

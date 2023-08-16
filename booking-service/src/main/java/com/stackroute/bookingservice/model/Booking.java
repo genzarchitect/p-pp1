@@ -11,18 +11,19 @@ public class Booking {
     @Id
     private int bookingId;
     private Date bookingDateslot;
-    private int groundId;
+    private String groundId;
     private String playerEmail;
     private String groundOwnerEmail;
     private int slotId;
     private double pricePaid;
+    //what will be in booking status;
     private String bookingStatus;
     private Date slotDate;
 
     public Booking() {
     }
 
-    public Booking(int bookingId, Date bookingDateslot, int groundId, String playerEmail, String groundOwnerEmail, int slotId, double pricePaid, String bookingStatus, Date slotDate) {
+    public Booking(int bookingId, Date bookingDateslot, String groundId, String playerEmail, String groundOwnerEmail, int slotId, double pricePaid, String bookingStatus, Date slotDate) {
         this.bookingId = bookingId;
         this.bookingDateslot = bookingDateslot;
         this.groundId = groundId;
@@ -50,11 +51,11 @@ public class Booking {
         this.bookingDateslot = bookingDateslot;
     }
 
-    public int getGroundId() {
+    public String getGroundId() {
         return groundId;
     }
 
-    public void setGroundId(int groundId) {
+    public void setGroundId(String groundId) {
         this.groundId = groundId;
     }
 
@@ -111,7 +112,7 @@ public class Booking {
         return "Booking{" +
                 "bookingId=" + bookingId +
                 ", bookingDateslot=" + bookingDateslot +
-                ", groundId=" + groundId +
+                ", groundId='" + groundId + '\'' +
                 ", playerEmail='" + playerEmail + '\'' +
                 ", groundOwnerEmail='" + groundOwnerEmail + '\'' +
                 ", slotId=" + slotId +

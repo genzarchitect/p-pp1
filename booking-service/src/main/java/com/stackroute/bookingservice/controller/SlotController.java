@@ -14,8 +14,12 @@ import org.springframework.web.bind.annotation.*;
 import java.util.Date;
 import java.util.List;
 
+//there should be bookslot method so when we book a slot we can call this
+//how to know if the number of player is crossing the slot limit;
+
 @RestController
 @RequestMapping("/slot")
+@CrossOrigin(origins = "http://localhost:4200")
 public class SlotController {
     @Autowired
     public SlotService slotService;
@@ -30,6 +34,18 @@ public class SlotController {
             responseEntity = new ResponseEntity<>("Slot List is Empty", HttpStatus.BAD_REQUEST);
         }
         return responseEntity;
+    }
+
+    @PostMapping("/slot/book/{slotId}")
+    public ResponseEntity<Slot> bookSlot(@PathVariable int slotId) {
+        Slot updatedSlot = slotService.bookSlot(slotId);
+        return ResponseEntity.ok(updatedSlot);
+    }
+
+    @GetMapping("/ground/{groundId}/date/{date}")
+    public ResponseEntity<List<Slot>> getSlotsForGroundByDate(@PathVariable String groundId, @PathVariable String date) {
+        List<Slot> slots = slotService.getSlotsForGroundByDate(groundId, date);
+        return ResponseEntity.ok(slots);
     }
 
     @PostMapping("/addslot")

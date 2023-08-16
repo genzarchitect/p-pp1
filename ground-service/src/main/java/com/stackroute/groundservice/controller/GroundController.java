@@ -25,6 +25,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/api/v1")
+@CrossOrigin(origins = "http://localhost:4200")
 public class GroundController {
 
     ResponseEntity<?> responseEntity;
@@ -64,13 +65,15 @@ public class GroundController {
         return responseEntity;
     }
     @PostMapping("/addImage/{groundId}")
-    public String addImageToGround(@PathVariable int groundId, @RequestParam("file") MultipartFile file) {
+    public String addImageToGround(@PathVariable String groundId, @RequestParam("file") MultipartFile file) {
         return groundService.addImageToGround(groundId, file);
     }
 
 
+    //how will i get that ground on that page willthat be by ID;
+    
     @GetMapping("/groundId/{id}")
-    public ResponseEntity<?> getGroundById(@PathVariable("id") int id){
+    public ResponseEntity<?> getGroundById(@PathVariable("id") String id){
         try {
             Ground ground = groundService.getGroundById(id);
             if(ground!=null){
@@ -106,7 +109,7 @@ public class GroundController {
     }
 
     @DeleteMapping("/ground/{id}")
-    public ResponseEntity<?> deleteGround(@PathVariable int id) {
+    public ResponseEntity<?> deleteGround(@PathVariable String id) {
         try {
           boolean check=  groundService.deleteGround(id);
             if(check){
@@ -120,13 +123,14 @@ public class GroundController {
     }
 
     @GetMapping("/ground/image/{groundId}")
-    public ResponseEntity<?> getGroundImage(@PathVariable int groundId) {
+    public ResponseEntity<?> getGroundImage(@PathVariable String groundId) {
         Ground ground = groundService.getGroundById(groundId);
         if (ground != null) {
             InputStreamResource resource = gridFsService.retrieveFile(ground.getGroundImage());
             if (resource != null) {
                 return ResponseEntity.ok()
                         .contentType(MediaType.IMAGE_JPEG)
+                        .header("Content-Disposition", "inline;filename=" + ground.getGroundImage())
                         .body(resource);
             } else {
                 return new ResponseEntity<>("No image found for ground", HttpStatus.NOT_FOUND);
@@ -135,6 +139,7 @@ public class GroundController {
             return new ResponseEntity<>("No ground found with id: " + groundId, HttpStatus.NOT_FOUND);
         }
     }
+
 
     @PostMapping("/status/{id}")
     public ResponseEntity<?> changeStatus(@PathVariable("id") int id, @RequestParam("status") String statusStr) {
@@ -149,8 +154,8 @@ public class GroundController {
         return responseEntity;
     }
 
-    @PutMapping("/updateground/{id}")
-    public ResponseEntity<?> updateGround(@PathVariable("id") int id, @RequestBody Ground updatedGround) {
+    @PostMapping("/updateground/{id}")
+    public ResponseEntity<?> updateGround(@PathVariable("id") String id, @RequestBody Ground updatedGround) {
         try {
             Ground ground = groundService.updateGround(id, updatedGround);
             if(ground != null){

@@ -12,6 +12,9 @@ public interface GroundRepo extends MongoRepository<Ground,Integer> {
     List<Ground> findByGroundOwnerEmail(String email);
     List<Ground> findByStatus(Ground.Status status);
     List<Ground> findByGroundAddress_City(String city);
+    Ground findByGroundId(String id);
+
+    Ground deleteGroundsByGroundId(String string);
 
 
 

@@ -47,6 +47,24 @@ public class SlotServiceImpl implements SlotService{
 
         throw new BookingIdNotFound("slot not found");
     }
+    
+    @Override
+    public Slot bookSlot(int slotId) {
+        Optional<Slot> slotOptional = slotRepo.findById(slotId);
+
+        if (slotOptional.isPresent()) {
+            Slot slot = slotOptional.get();
+
+            if (slot.getNumberOfPlayers() > 0) {
+                slot.setNumberOfPlayers(slot.getNumberOfPlayers() - 1);
+                return slotRepo.save(slot);
+            } else {
+                throw new RuntimeException("Slot is fully booked");
+            }
+        } else {
+            throw new RuntimeException("Slot not found");
+        }
+    }
 
     @Override
     public Slot getSlotByDate(String slotDate) {
@@ -56,8 +74,13 @@ public class SlotServiceImpl implements SlotService{
             slotRepo.findBySlotDate(slotDate);
             return slot;
         }
-
         throw new SlotDateNotFound("slot not found");
+    }
+
+
+    @Override
+    public List<Slot> getSlotsForGroundByDate(String groundId, String date) {
+        return slotRepo.findByGroundIdAndSlotDate(groundId, date);
     }
 
     @Override
