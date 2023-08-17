@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 package com.stackroute.userservice.controller;
 
 import com.stackroute.userservice.exception.EmptyUserException;

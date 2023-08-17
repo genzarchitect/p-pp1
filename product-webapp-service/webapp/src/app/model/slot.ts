@@ -1,4 +1,3 @@
-
 export class Slot {
   slotId?: number;
   groundId?: number;

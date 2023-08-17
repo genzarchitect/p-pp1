@@ -6,8 +6,7 @@
 		<groupId>com.stackroute</groupId>
 		<artifactId>game-on-arena</artifactId>
 		<version>0.0.1-SNAPSHOT</version>
-		<relativePath>../pom.xml</relativePath><!-- lookup parent from repository -->
-
+		<relativePath>../pom.xml</relativePath> <!-- lookup parent from repository -->
 	</parent>
 	<groupId>com.stackroute</groupId>
 	<artifactId>user-service</artifactId>

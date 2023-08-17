@@ -1,18 +1,23 @@
-package com.stackroute.controller;
+package com.stackroute.loginservice.controller;
 
-
-import com.stackroute.Exceptions.EmailNotFound;
-import com.stackroute.Exceptions.IncorrectPasswordException;
-import com.stackroute.Exceptions.UserExistsException;
-import com.stackroute.Exceptions.UserNotFoundException;
-import com.stackroute.service.LoginService;
-import com.stackroute.service.TokenGeneratorService;
-import com.stackroute.model.User;
-import com.stackroute.model.UserCredential;
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.stackroute.loginservice.Exceptions.EmailNotFound;
+import com.stackroute.loginservice.Exceptions.IncorrectPasswordException;
+import com.stackroute.loginservice.Exceptions.UserExistsException;
+import com.stackroute.loginservice.Exceptions.UserNotFoundException;
+import com.stackroute.loginservice.Service.LoginService;
+import com.stackroute.loginservice.Service.TokenGeneratorService;
+//import com.stackroute.loginservice.kafka.KafkaConsumer;
+import com.stackroute.loginservice.model.User;
+import com.stackroute.loginservice.model.UserCredential;
+import org.apache.kafka.clients.consumer.KafkaConsumer;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-
+import org.springframework.kafka.annotation.KafkaListener;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.Map;
@@ -36,17 +41,16 @@ import java.util.Map;
     }
 
 
-//    @PostMapping("/register")
-//    public ResponseEntity<?> registerUser(@RequestBody User user) throws UserExistsException {
-//        try {
-//            User users = loginService.registerUser(user);
-//            responseEntity = new ResponseEntity<>(users, HttpStatus.CREATED);
-//        } catch (UserExistsException u) {
-//            responseEntity = new ResponseEntity<>("User Already Exists.", HttpStatus.CONFLICT);
-//        }
-//        return responseEntity;
-//    }
-    @CrossOrigin(origins="*")
+    @PostMapping("/register")
+    public ResponseEntity<?> registerUser(@RequestBody User user) throws UserExistsException {
+        try {
+            User users = loginService.registerUser(user);
+            responseEntity = new ResponseEntity<>(users, HttpStatus.CREATED);
+        } catch (UserExistsException u) {
+            responseEntity = new ResponseEntity<>("User Already Exists.", HttpStatus.CONFLICT);
+        }
+        return responseEntity;
+    }
 
     @PostMapping("/login")
     public ResponseEntity<?> authenticate(@RequestBody UserCredential credential) throws UserNotFoundException, IncorrectPasswordException {

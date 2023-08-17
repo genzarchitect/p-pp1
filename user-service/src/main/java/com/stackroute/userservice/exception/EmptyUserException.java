@@ -6,3 +6,4 @@ public class EmptyUserException extends RuntimeException {
 
     }
 }
+>>>>>>> d8d8cbb25adbb332da766934a088c850053eb5ee

@@ -7,9 +7,6 @@ import { GroundListComponent } from './ground-list/ground-list.component'; // Im
 import { ArenaDetailsComponent } from './arena-details/arena-details.component';
 
 
-
-
-
 const routes: Routes = [
   { path: '', component: ArenaDetailsComponent },
 
@@ -27,4 +24,5 @@ const routes: Routes = [
 export class AppRoutingModule { 
   
 }
+
 

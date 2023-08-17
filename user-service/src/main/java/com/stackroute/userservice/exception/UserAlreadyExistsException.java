@@ -5,3 +5,4 @@ public class UserAlreadyExistsException extends RuntimeException {
         super(userAlreadyExistsInDb);
     }
 }
+>>>>>>> d8d8cbb25adbb332da766934a088c850053eb5ee
