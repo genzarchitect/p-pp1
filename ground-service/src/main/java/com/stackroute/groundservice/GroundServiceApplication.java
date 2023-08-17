@@ -8,6 +8,7 @@ public class GroundServiceApplication {
 
 	public static void main(String[] args) {
 		SpringApplication.run(GroundServiceApplication.class, args);
+		System.out.println("Application is running");
 	}
 
 }
