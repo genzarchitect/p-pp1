@@ -36,6 +36,9 @@ public class SlotController {
         return responseEntity;
     }
 
+
+
+    @CrossOrigin(origins = "*")
     @PostMapping("/slot/book/{slotId}")
     public ResponseEntity<Slot> bookSlot(@PathVariable int slotId) {
         Slot updatedSlot = slotService.bookSlot(slotId);
@@ -47,6 +50,7 @@ public class SlotController {
         List<Slot> slots = slotService.getSlotsForGroundByDate(groundId, date);
         return ResponseEntity.ok(slots);
     }
+
 
     @PostMapping("/addslot")
     public ResponseEntity<?> addSlot(@RequestBody Slot slot) throws SlotAlreadyFound{

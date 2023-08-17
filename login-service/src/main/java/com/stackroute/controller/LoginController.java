@@ -46,6 +46,7 @@ import java.util.Map;
 //        }
 //        return responseEntity;
 //    }
+    @CrossOrigin(origins="*")
 
     @PostMapping("/login")
     public ResponseEntity<?> authenticate(@RequestBody UserCredential credential) throws UserNotFoundException, IncorrectPasswordException {

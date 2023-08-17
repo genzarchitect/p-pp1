@@ -1,4 +1,4 @@
-package com.stackroute.exception;
+package com.stackroute.userservice.exception;
 
 public class EmptyUserException extends RuntimeException {
     public EmptyUserException(String s) {

@@ -16,14 +16,32 @@ import { MbscDatepickerOptions, setOptions } from '@mobiscroll/angular';
 import { GroundListComponent } from './ground-list/ground-list.component';
 import { HttpClientModule } from '@angular/common/http';
 
+import { LoginComponent } from './login/login.component';
+import { SignupComponent } from './signup/signup.component';
+import { ReactiveFormsModule } from '@angular/forms';
+
+import { SlotComponent } from './slot/slot.component';
+
 
 @NgModule({
-  declarations: [AppComponent, NavbarComponent, ArenaDetailsComponent, GroundListComponent],
+  declarations: [
+    AppComponent,
+    LoginComponent,
+    SignupComponent,
+    SlotComponent,
+    NavbarComponent,
+    ArenaDetailsComponent,
+    GroundListComponent
+  ],
+
   imports: [
     FormsModule,
     MbscModule,
     BrowserModule,
     AppRoutingModule,
+    FormsModule,
+    ReactiveFormsModule,
+    HttpClientModule,
     MatDatepickerModule,
     MatFormFieldModule,
     MatInputModule,
