@@ -5,6 +5,7 @@ import { SignupComponent } from './signup/signup.component';
 import { SlotComponent } from './slot/slot.component';
 import { GroundListComponent } from './ground-list/ground-list.component'; // Import the GroundListComponent
 import { ArenaDetailsComponent } from './arena-details/arena-details.component';
+import { ProfileComponent } from './profile/profile.component';
 
 
 const routes: Routes = [
@@ -14,7 +15,8 @@ const routes: Routes = [
   { path: 'arena-details/:id', component: ArenaDetailsComponent },
   {path:'login', component:LoginComponent},
   {path:'signup', component:SignupComponent},
-  {path:'slot',component:SlotComponent}
+  {path:'slot',component:SlotComponent},
+  {path:'profile',component:ProfileComponent}
 ];
 
 @NgModule({
