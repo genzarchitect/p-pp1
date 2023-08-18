@@ -22,6 +22,7 @@ import { ReactiveFormsModule } from '@angular/forms';
 
 import { SlotComponent } from './slot/slot.component';
 import { DropdownComponent } from './dropdown/dropdown.component';
+import { ProfileComponent } from './profile/profile.component';
 
 
 @NgModule({
@@ -33,7 +34,8 @@ import { DropdownComponent } from './dropdown/dropdown.component';
     NavbarComponent,
     ArenaDetailsComponent,
     GroundListComponent,
-    DropdownComponent
+    DropdownComponent,
+    ProfileComponent
   ],
 
   imports: [
