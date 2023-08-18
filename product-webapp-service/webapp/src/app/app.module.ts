@@ -21,6 +21,7 @@ import { SignupComponent } from './signup/signup.component';
 import { ReactiveFormsModule } from '@angular/forms';
 
 import { SlotComponent } from './slot/slot.component';
+import { DropdownComponent } from './dropdown/dropdown.component';
 
 
 @NgModule({
@@ -31,7 +32,8 @@ import { SlotComponent } from './slot/slot.component';
     SlotComponent,
     NavbarComponent,
     ArenaDetailsComponent,
-    GroundListComponent
+    GroundListComponent,
+    DropdownComponent
   ],
 
   imports: [

@@ -65,7 +65,26 @@
                             <input type="radio" id="age3" name="age" value="100">
                             <label for="age3">61 - 100</label><br><br>-->
 
-                            <button type="submit" class="btn btn-primary btn-block mt-4 w-100" [disabled]="signupForm.form.invalid">Sign Up</button>
+                            <!--<div class="form-group pt-3">
+                                <div class="input-field">
+                                    
+                                </div>
+                            </div>
+
+                                   <p>Please select your favorite Web language:</p>
+                                   <input type="radio" id="userType" #userType='ngModel' [class.error-border]='userType.dirty'
+required [(ngModel)]='newUser.userType' name='userType' value="HTML">
+                                   <label for="html">Owner</label><br>
+                                   <input type="radio" id="userType" #userType='ngModel' [class.error-border]='userType.dirty'
+required [(ngModel)]='newUser.userType' name='userType' value="CSS">
+                                   <label for="css">Player</label><br>
+
+                            <div *ngIf='userType.errors && userType.dirty'>
+                                <small class='error-message' *ngIf="userType.errors?.['required']" > User Role is mandatory</small>
+
+                            </div>-->
+
+                            <button type="submit" class="btn btn-primary btn-block mt-4 w-100" >Sign Up</button>
                             
                             <div class="text-center pt-4 text-muted">Already have account? <a id="forget" routerLink="/login">Sign In</a></div>
                             <!--<input class="button" type="submit" value="Add" [disabled]="signupForm.form.invalid"/>-->

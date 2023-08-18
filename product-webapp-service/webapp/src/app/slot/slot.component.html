@@ -11,7 +11,7 @@
                             <div class="form-group pt-3">
                                 <div class="input-field">
                                     <span class="fa fa-calendar p-2"></span>
-                                    <input type="text" #slotDate='ngModel' [class.error-border]='slotDate.dirty'
+                                    <input type="date" #slotDate='ngModel' [class.error-border]='slotDate.dirty'
                                     required [(ngModel)]='newSlot.slotDate' name='slotDate' placeholder="Slot Date">
                                 </div>
                             </div>
@@ -21,7 +21,7 @@
                             <div class="form-group pt-3">
                                 <div class="input-field">
                                     <span class="fa fa-hourglass-start p-2"></span>
-                                    <input type="text" #slotStartTiming='ngModel' [class.error-border]='slotStartTiming.dirty'
+                                    <input type="time" #slotStartTiming='ngModel' [class.error-border]='slotStartTiming.dirty'
                                     required [(ngModel)]='newSlot.slotStartTiming' name='slotStartTiming' placeholder="Slot Starting Time">
                                 </div>
                             </div>
@@ -31,20 +31,11 @@
                             <div class="form-group pt-3">
                                 <div class="input-field">
                                     <span class="fa fa-hourglass-end p-2"></span>
-                                    <input type="text" #slotEndTiming='ngModel' [class.error-border]='slotEndTiming.dirty'
+                                    <input type="time" #slotEndTiming='ngModel' [class.error-border]='slotEndTiming.dirty'
                                     required [(ngModel)]='newSlot.slotEndTiming' name='slotEndTiming'placeholder="Slot Ending Time">
                                 </div>
                             </div>
-                            <div class="form-group pt-3">
-                                <div class="input-field">
-                                    <span class="fa fa-hourglass-end p-2"></span>
-                                    <input type="text" #slotId='ngModel' [class.error-border]='slotId.dirty'
-                                    required [(ngModel)]='newSlot.slotId' name='slotId'placeholder="Slot Ending Time">
-                                </div>
-                            </div>
-                            <div *ngIf='slotStartTiming.errors && slotStartTiming.touched'>
-                                <small class='error-message' *ngIf="slotStartTiming.errors?.['required']" > Slot starting time is mandatory</small>
-                            </div>
+                            
                             <div *ngIf='slotEndTiming.errors && slotEndTiming.touched'>
                                 <small class='error-message' *ngIf="slotEndTiming.errors?.['required']" > Slot ending time is mandatory</small>
                             </div>
@@ -58,7 +49,31 @@
                             <div *ngIf='numberOfPlayers.errors && numberOfPlayers.touched'>
                                 <small class='error-message' *ngIf="numberOfPlayers.errors?.['required']" > No. of players is mandatory</small>
                             </div>
+
+                            <div class="form-group pt-3">
+                                <div class="input-field">
+                                    <span class="fa fa-hourglass-end p-2"></span>
+                                    <input type="text" #slotId='ngModel' [class.error-border]='slotId.dirty'
+                                    required [(ngModel)]='newSlot.slotId' name='slotId'placeholder="Slot Id">
+                                </div>
+                            </div>
+                            <div *ngIf='slotStartTiming.errors && slotStartTiming.touched'>
+                                <small class='error-message' *ngIf="slotStartTiming.errors?.['required']" > Slot starting time is mandatory</small>
+                            </div>
+
+                            <div class="form-group pt-3">
+                                <div class="input-field">
+                                    <label for="">Grounds</label>
+                                    <select> 
+                                        <option *ngFor="let ground of newGround" value="ground.groundId">{{ground.groundName}}</option>
+                                    </select>
+                                </div>
+                            </div>
+
                             <button type="submit" class="btn btn-primary btn-block mt-4 w-100" [disabled]="slotForm.form.invalid">Submit</button>
+
+
+                            
                             
                         </form>
                     </div>

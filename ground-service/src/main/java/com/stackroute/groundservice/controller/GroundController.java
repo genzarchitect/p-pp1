@@ -85,7 +85,7 @@ public class GroundController {
         }
         return responseEntity;
     }
-
+    @CrossOrigin(origins = "*")
     @GetMapping("/ground/{email}")
     public ResponseEntity<?> getGroundByOwner(@PathVariable("email") String email){
         try {

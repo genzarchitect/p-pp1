@@ -13,4 +13,9 @@ export class SlotformService {
     return this.http.post("http://localhost:8090/slot/addslot",slot);
   }
 
+  public getGroundByEmail(groundOwnerEmail:string)
+  {
+    return this.http.get("http://localhost:8087/api/v1/ground/"+groundOwnerEmail);
+  }
+
 }

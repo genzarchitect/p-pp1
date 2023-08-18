@@ -23,7 +23,7 @@ export class SignupComponent implements OnInit{
   }
 
   save(data:User){
-    this.signupformService.save(data).subscribe(d=>console.log("Details saved"));
+    this.signupformService.save(data).subscribe(d=>console.log("Details saved",d));
 
   }
   hideShowPass(){

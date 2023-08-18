@@ -1,4 +1,4 @@
-<<<<<<< HEAD
+
 package com.stackroute.model;
 
 import org.springframework.data.annotation.Id;
