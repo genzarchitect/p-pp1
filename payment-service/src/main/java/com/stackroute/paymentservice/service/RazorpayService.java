@@ -33,11 +33,11 @@ public class RazorpayService implements PaymentService {
     }
 
 
-    @Override
-    public PaymentDetails updateOrderWithBookingId(String orderId, String bookingId) {
-        PaymentDetails payment= findById(orderId);
-        payment.setBookingId(bookingId);
-        return paymentDetailsRepository.save(payment);
-    }
+//    @Override
+//    public PaymentDetails updateOrderWithBookingId(String orderId, String bookingId) {
+//        PaymentDetails payment= findById(orderId);
+//        payment.setBookingId(bookingId);
+//        return paymentDetailsRepository.save(payment);
+//    }
 
 }

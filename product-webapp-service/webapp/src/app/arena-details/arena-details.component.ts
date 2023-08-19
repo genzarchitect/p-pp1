@@ -4,6 +4,7 @@ import { ActivatedRoute } from '@angular/router';
 import { Ground } from '../model/ground';
 import { Slot } from '../model/slot'; // Include the slot model you've created
 import { PaymentService } from '../services/payment.service';
+import { PaymentDetails } from '../model/paymentDetails';
 declare var Razorpay: any;
 @Component({
   selector: 'app-arena-details',
@@ -81,8 +82,8 @@ export class ArenaDetailsComponent implements OnInit {
       this.groundService.bookSlot(this.selectedSlot.slotId).subscribe(
         (response) => {
           // alert('Slot booked successfully!');
-          const amount = this.ground?.pricePerHour
-            ? this.ground.pricePerHour
+          const amount = this.ground?.pricePerSlot
+            ? this.ground.pricePerSlot
             : 0;
           this.initiatePayment(amount);
           this.loadAvailableSlots();
@@ -99,7 +100,9 @@ export class ArenaDetailsComponent implements OnInit {
   initiatePayment(amount: number): void {
     this.paymentService.createPayment(amount).subscribe(
       (response) => {
+        console.log(response);
         if (response && response.id) {
+          console.log(response.amount);
           const options = {
             key: 'rzp_test_Ga4sXAOK2JGGgr',
             amount: response.amount,
@@ -108,13 +111,26 @@ export class ArenaDetailsComponent implements OnInit {
             description: 'Booking Payment',
             order_id: response.id,
             handler: (res: any) => {
-              // We Need to Handle the payment response here
-              console.log(res);
-              // Payement Details can be stored here
+              let paymentDetails: PaymentDetails = {
+                paymentId: res.razorpay_payment_id,
+                amount: res.amount / 100,
+                currency: res.currency,
+                status: res.status,
+                orderId: res.razorpay_order_id,
+                paymentMethod: res.method,
+                customerEmail: res.email,
+                customerName: res.name,
+                paymentCreatedAt: new Date(),
+                transactionTime: new Date(),
+              };
+              this.paymentService.savePaymentDetails(paymentDetails).subscribe(
+                (success) => console.log('Payment details saved.'),
+                (error) => console.error('Error saving payment details:', error)
+              );
             },
             prefill: {
-              name: 'User Name',
-              email: 'user@example.com',
+              name: '', //details from user or your app's session
+              email: '',
             },
             theme: {
               color: '#F37254',
@@ -125,7 +141,7 @@ export class ArenaDetailsComponent implements OnInit {
         }
       },
       (error) => {
-        console.error('Error in payment initiation:', error);
+        console.error('Error initiating payment:', error);
       }
     );
   }

@@ -3,49 +3,53 @@ package com.stackroute.paymentservice.model;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
+import java.time.Instant;
 import java.time.LocalDateTime;
 
 @Document
 public class PaymentDetails {
+
     @Id
-    private String orderId;
-    private String amount;
+    private String paymentId;  // Matches the 'id' from the Razorpay response
+    private Double amount;
     private String currency;
-    private String receipt;
     private String status;
-    private String name;
-    private String emailId;
-    private String bookingId;
-    private LocalDateTime localDateTime;
+    private String orderId;
+    private String paymentMethod;
+    private String customerEmail;
+    private String customerName;
+    private Instant paymentCreatedAt;
+    private LocalDateTime transactionTime;
 
     public PaymentDetails() {
     }
 
-    public PaymentDetails(String orderId, String amount, String currency, String receipt, String status, String name, String emailId, String bookingId, LocalDateTime localDateTime) {
-        this.orderId = orderId;
+    public PaymentDetails(String paymentId, Double amount, String currency, String status, String orderId, String paymentMethod, String customerEmail, String customerName, Instant paymentCreatedAt, LocalDateTime transactionTime) {
+        this.paymentId = paymentId;
         this.amount = amount;
         this.currency = currency;
-        this.receipt = receipt;
         this.status = status;
-        this.name = name;
-        this.emailId = emailId;
-        this.bookingId = bookingId;
-        this.localDateTime = localDateTime;
-    }
-
-    public String getOrderId() {
-        return orderId;
-    }
-
-    public void setOrderId(String orderId) {
         this.orderId = orderId;
+        this.paymentMethod = paymentMethod;
+        this.customerEmail = customerEmail;
+        this.customerName = customerName;
+        this.paymentCreatedAt = paymentCreatedAt;
+        this.transactionTime = transactionTime;
     }
 
-    public String getAmount() {
+    public String getPaymentId() {
+        return paymentId;
+    }
+
+    public void setPaymentId(String paymentId) {
+        this.paymentId = paymentId;
+    }
+
+    public Double getAmount() {
         return amount;
     }
 
-    public void setAmount(String amount) {
+    public void setAmount(Double amount) {
         this.amount = amount;
     }
 
@@ -57,14 +61,6 @@ public class PaymentDetails {
         this.currency = currency;
     }
 
-    public String getReceipt() {
-        return receipt;
-    }
-
-    public void setReceipt(String receipt) {
-        this.receipt = receipt;
-    }
-
     public String getStatus() {
         return status;
     }
@@ -73,50 +69,67 @@ public class PaymentDetails {
         this.status = status;
     }
 
-    public String getName() {
-        return name;
+    public String getOrderId() {
+        return orderId;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public void setOrderId(String orderId) {
+        this.orderId = orderId;
     }
 
-    public String getEmailId() {
-        return emailId;
+    public String getPaymentMethod() {
+        return paymentMethod;
     }
 
-    public void setEmailId(String emailId) {
-        this.emailId = emailId;
+    public void setPaymentMethod(String paymentMethod) {
+        this.paymentMethod = paymentMethod;
     }
 
-    public String getBookingId() {
-        return bookingId;
+    public String getCustomerEmail() {
+        return customerEmail;
     }
 
-    public void setBookingId(String bookingId) {
-        this.bookingId = bookingId;
+    public void setCustomerEmail(String customerEmail) {
+        this.customerEmail = customerEmail;
     }
 
-    public LocalDateTime getLocalDateTime() {
-        return localDateTime;
+    public String getCustomerName() {
+        return customerName;
     }
 
-    public void setLocalDateTime(LocalDateTime localDateTime) {
-        this.localDateTime = localDateTime;
+    public void setCustomerName(String customerName) {
+        this.customerName = customerName;
+    }
+
+    public Instant getPaymentCreatedAt() {
+        return paymentCreatedAt;
+    }
+
+    public void setPaymentCreatedAt(Instant paymentCreatedAt) {
+        this.paymentCreatedAt = paymentCreatedAt;
+    }
+
+    public LocalDateTime getTransactionTime() {
+        return transactionTime;
+    }
+
+    public void setTransactionTime(LocalDateTime transactionTime) {
+        this.transactionTime = transactionTime;
     }
 
     @Override
     public String toString() {
         return "PaymentDetails{" +
-                "orderId='" + orderId + '\'' +
-                ", amount='" + amount + '\'' +
+                "paymentId='" + paymentId + '\'' +
+                ", amount=" + amount +
                 ", currency='" + currency + '\'' +
-                ", receipt='" + receipt + '\'' +
                 ", status='" + status + '\'' +
-                ", name='" + name + '\'' +
-                ", emailId='" + emailId + '\'' +
-                ", bookingId='" + bookingId + '\'' +
-                ", localDateTime=" + localDateTime +
+                ", orderId='" + orderId + '\'' +
+                ", paymentMethod='" + paymentMethod + '\'' +
+                ", customerEmail='" + customerEmail + '\'' +
+                ", customerName='" + customerName + '\'' +
+                ", paymentCreatedAt=" + paymentCreatedAt +
+                ", transactionTime=" + transactionTime +
                 '}';
     }
 }

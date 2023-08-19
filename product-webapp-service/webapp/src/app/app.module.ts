@@ -23,9 +23,11 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { SlotComponent } from './slot/slot.component';
 import { DropdownComponent } from './dropdown/dropdown.component';
 import { ProfileComponent } from './profile/profile.component';
+import { GroundOwnerComponent } from './ground-owner/ground-owner.component';
 
 
 @NgModule({
+
   declarations: [
     AppComponent,
     LoginComponent,
@@ -35,7 +37,8 @@ import { ProfileComponent } from './profile/profile.component';
     ArenaDetailsComponent,
     GroundListComponent,
     DropdownComponent,
-    ProfileComponent
+    ProfileComponent,
+    GroundOwnerComponent
   ],
 
   imports: [
@@ -52,6 +55,7 @@ import { ProfileComponent } from './profile/profile.component';
     MatNativeDateModule,
     BrowserAnimationsModule,
     HttpClientModule,
+    ReactiveFormsModule,
   ],
   providers: [],
   bootstrap: [AppComponent],

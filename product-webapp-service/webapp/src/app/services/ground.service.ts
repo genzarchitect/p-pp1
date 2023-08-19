@@ -9,7 +9,7 @@ import { Slot } from '../model/slot';
 })
 export class GroundService {
   private baseURL = 'http://localhost:8087/api/v1';
-  private slotbaseURL = 'http://localhost:8090/slot';
+  private slotbaseURL = 'http://localhost:8092/slot';
 
   constructor(private http: HttpClient) {}
 
@@ -23,15 +23,14 @@ export class GroundService {
     return `${this.baseURL}/ground/image/${groundId}`;
   }
 
-
   getGroundById(groundId: string): Observable<Ground> {
     return this.http.get<Ground>(`${this.baseURL}/groundId/${groundId}`);
   }
 
   // Add a new ground
-  addGround(ground: Ground): Observable<any> {
-    return this.http.post<string>(`${this.baseURL}/addground`, ground);
-  }
+  // addGround(ground: Ground): Observable<any> {
+  //   return this.http.post<string>(`${this.baseURL}/addground`, ground);
+  // }
 
   getSlotsByDateForGround(groundId: string, date: string): Observable<Slot[]> {
     return this.http.get<Slot[]>(
@@ -44,7 +43,15 @@ export class GroundService {
   }
 
   bookSlot(slotId: number): Observable<any> {
-
     return this.http.post(`${this.slotbaseURL}/slot/book/${slotId}`, {});
+  }
+  addGround(groundData: any): Observable<any> {
+    return this.http.post(`${this.baseURL}/addground`, groundData);
+  }
+
+  uploadImage(groundId: string, image: File): Observable<any> {
+    const formData: FormData = new FormData();
+    formData.append('file', image, image.name);
+    return this.http.post(`${this.baseURL}/addImage/${groundId}`, formData);
   }
 }
