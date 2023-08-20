@@ -6,14 +6,14 @@ import { Observable } from 'rxjs';
   providedIn: 'root'
 })
 export class UserService {
-  private apiUrl = ''; // need to add api
+  private apiUrl = 'http://localhost:8087/User'; // need to add api
 
   constructor(private http: HttpClient) { }
 
   getUsers(): Observable<any[]> {
-    return this.http.get<any[]>(`${this.apiUrl}/users`);
+    return this.http.get<any[]>(`${this.apiUrl}/userList`);
   }
     updateUserDetails(user: any): Observable<any> {
-      return this.http.put<any>(`${this.apiUrl}/api/users/${user.id}`, user);
+      return this.http.put<any>(`${this.apiUrl}/userList/{userEmail}/${user.id}`, user);
     }
   }

@@ -6,22 +6,25 @@ import { SlotComponent } from './slot/slot.component';
 import { GroundListComponent } from './ground-list/ground-list.component'; // Import the GroundListComponent
 import { ArenaDetailsComponent } from './arena-details/arena-details.component';
 import { ProfileComponent } from './profile/profile.component';
-import { GroundOwnerComponent } from './ground-owner/ground-owner.component';
+
 
 const routes: Routes = [
   { path: '', component: ArenaDetailsComponent },
 
   { path: 'arenas', component: GroundListComponent },
   { path: 'arena-details/:id', component: ArenaDetailsComponent },
-  { path: 'addground', component: GroundOwnerComponent },
-  { path: 'login', component: LoginComponent },
-  { path: 'signup', component: SignupComponent },
-  { path: 'slot', component: SlotComponent },
-  { path: 'profile', component: ProfileComponent },
+  {path:'login', component:LoginComponent},
+  {path:'signup', component:SignupComponent},
+  {path:'slot',component:SlotComponent},
+  {path:'profile',component:ProfileComponent}
 ];
 
 @NgModule({
   imports: [RouterModule.forRoot(routes)],
   exports: [RouterModule],
 })
-export class AppRoutingModule {}
+export class AppRoutingModule { 
+  
+}
+
+
