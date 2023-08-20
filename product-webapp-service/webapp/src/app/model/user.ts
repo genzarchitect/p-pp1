@@ -13,5 +13,6 @@ export class User{
         public userGender?:string;
         public userMobile?:string;
         public userAddress?:string;
+  
     
 }

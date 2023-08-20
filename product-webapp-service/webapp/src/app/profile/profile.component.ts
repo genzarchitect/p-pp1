@@ -10,12 +10,15 @@ import { User } from '../model/user';
 })
 export class ProfileComponent implements OnInit {
   userForm!: FormGroup;
+  public  user: User= new User();
+  public newUser : any[]=[];
+  userEmail:String| null = null;
   
-  
-  constructor(private formBuilder: FormBuilder,private userService: UserService) {}
-  // user = { userName: 'jai', userEmail: 'abcde',userMobile: '232',userGender: 'm',userAddress: 'bangalore', };
-  user: User = new User();
   isEditing = false;
+
+  constructor(private formBuilder: FormBuilder,private userService: UserService) {}
+  
+
 
   ngOnInit(): void {
     
@@ -26,19 +29,14 @@ export class ProfileComponent implements OnInit {
       userGender: ['', Validators.required],
       userAddress: ['', Validators.required]
     });
-
-this.fetchUserDetails();
-  }
-  fetchUserDetails():void{
-    this.userService.getUsers().subscribe(
-      (users)=>{
-        this.user=users[0];
-        this.userForm.patchValue(this.user);
-      },
-      (error)=>{
-        console.error('Error fething user details:',error);
-      }
-    );
+  
+    this.userService.getUserByEmail("abc@gmail.com").subscribe((data:any)=>{
+      console.log(data);
+      data.forEach((element:any) => {
+        this.newUser.push(element);
+        console.log(this.newUser);       
+      });
+    })
   }
   
 
@@ -47,22 +45,21 @@ this.fetchUserDetails();
     this.isEditing = true;
   }
 
-  saveDetails() {
-    if (this.userForm.valid) {
-      this.user={...this.user,...this.userForm.value};
-      this.userService.updateUserDetails(this.user).subscribe(
-        () => {
-          console.log('User details saved:', this.user);
-          this.isEditing = false;
-        },
-        (error: any) => {
-          console.error('Error saving user details:', error);
-          
-        }
-      );
-    }
+  getUserByEmail(UserEmail:String){
+  {
+    this.userService.getUserByEmail(UserEmail).subscribe((data: any)=>
+    console.log("User names",data));
+  }
+  }
+  
+  saveDetails(data:User) {
+    this.userService.saveDetails(data).subscribe((d: any)=>
+    console.log("Details saved",d));
+
+    
   }
   
 
 }
+
 
