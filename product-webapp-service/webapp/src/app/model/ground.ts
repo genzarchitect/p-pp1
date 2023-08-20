@@ -9,5 +9,5 @@ export class Ground {
   categories?: string;
   openingTime?: string;
   closingTime?: string;
-  pricePerSlot?:number;
+  pricePerHour?:number;
 }
