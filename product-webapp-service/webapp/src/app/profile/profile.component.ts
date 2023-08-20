@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup } from '@angular/forms';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import{UserService} from '../services/user.service';
+import { User } from '../model/user';
 
 @Component({
   selector: 'app-profile',
@@ -12,14 +13,33 @@ export class ProfileComponent implements OnInit {
   
   
   constructor(private formBuilder: FormBuilder,private userService: UserService) {}
-
-  ngOnInit(): void {
-    this.userForm = this.formBuilder.group({});
-  }
-
-  user = { userName: 'jai', userEmail: 'ab',userMobile: '232',userGender: 'm',userAddress: 'bangalore', };
+  // user = { userName: 'jai', userEmail: 'abcde',userMobile: '232',userGender: 'm',userAddress: 'bangalore', };
+  user: User = new User();
   isEditing = false;
 
+  ngOnInit(): void {
+    
+    this.userForm = this.formBuilder.group({
+      userName: ['', Validators.required],
+      userEmail: ['', Validators.email],
+      userMobile: ['', Validators.required],
+      userGender: ['', Validators.required],
+      userAddress: ['', Validators.required]
+    });
+
+this.fetchUserDetails();
+  }
+  fetchUserDetails():void{
+    this.userService.getUsers().subscribe(
+      (users)=>{
+        this.user=users[0];
+        this.userForm.patchValue(this.user);
+      },
+      (error)=>{
+        console.error('Error fething user details:',error);
+      }
+    );
+  }
   
 
   editDetails() {
@@ -29,6 +49,7 @@ export class ProfileComponent implements OnInit {
 
   saveDetails() {
     if (this.userForm.valid) {
+      this.user={...this.user,...this.userForm.value};
       this.userService.updateUserDetails(this.user).subscribe(
         () => {
           console.log('User details saved:', this.user);
@@ -44,3 +65,4 @@ export class ProfileComponent implements OnInit {
   
 
 }
+
