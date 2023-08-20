@@ -46,7 +46,7 @@ public class BookingController {
     }
 
     @GetMapping("/getbooking/{bookingId}")
-    public ResponseEntity<?> getBookingI(@PathVariable("bookingId") int bookingId){
+    public ResponseEntity<?> getBookingI(@PathVariable("bookingId") String bookingId){
         try {
             Booking gbooking = bookingService.getBookingById(bookingId);
             responseEntity = new ResponseEntity<>(gbooking, HttpStatus.ACCEPTED);
@@ -80,7 +80,7 @@ public class BookingController {
 
 
     @DeleteMapping("/delete/{bookingId}")
-    public ResponseEntity<?> deleteBlog(@PathVariable("bookingId") int bookingId){
+    public ResponseEntity<?> deleteBlog(@PathVariable("bookingId") String bookingId){
         try {
             Booking dbooking = bookingService.deleteBookingById(bookingId);
             responseEntity = new ResponseEntity<>(dbooking, HttpStatus.ACCEPTED);

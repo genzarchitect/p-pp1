@@ -11,11 +11,11 @@ public interface BookingService {
 
     public Booking addAllBookingToBookingdb(Booking booking);
 
-    public Booking getBookingById(int bookingId);
+    public Booking getBookingById(String bookingId);
 
     public Booking getBookingByPlayerEmail(String playerEmail);
     public Booking getBookingByOwnerEmail(String groundOwnerEmail);
-    public Booking deleteBookingById(int bookingId);
+    public Booking deleteBookingById(String bookingId);
 
 
 }

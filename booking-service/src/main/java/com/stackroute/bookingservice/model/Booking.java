@@ -9,12 +9,12 @@ import java.util.Date;
 @Document
 public class Booking {
     @Id
-    private int bookingId;
+    private String bookingId;
     private Date bookingDateslot;
     private String groundId;
     private String playerEmail;
     private String groundOwnerEmail;
-    private int slotId;
+    private String slotId;
     private double pricePaid;
     //what will be in booking status;
     private String bookingStatus;
@@ -23,7 +23,7 @@ public class Booking {
     public Booking() {
     }
 
-    public Booking(int bookingId, Date bookingDateslot, String groundId, String playerEmail, String groundOwnerEmail, int slotId, double pricePaid, String bookingStatus, Date slotDate) {
+    public Booking(String bookingId, Date bookingDateslot, String groundId, String playerEmail, String groundOwnerEmail, String slotId, double pricePaid, String bookingStatus, Date slotDate) {
         this.bookingId = bookingId;
         this.bookingDateslot = bookingDateslot;
         this.groundId = groundId;
@@ -35,11 +35,11 @@ public class Booking {
         this.slotDate = slotDate;
     }
 
-    public int getBookingId() {
+    public String getBookingId() {
         return bookingId;
     }
 
-    public void setBookingId(int bookingId) {
+    public void setBookingId(String bookingId) {
         this.bookingId = bookingId;
     }
 
@@ -75,11 +75,11 @@ public class Booking {
         this.groundOwnerEmail = groundOwnerEmail;
     }
 
-    public int getSlotId() {
+    public String getSlotId() {
         return slotId;
     }
 
-    public void setSlotId(int slotId) {
+    public void setSlotId(String slotId) {
         this.slotId = slotId;
     }
 
@@ -110,12 +110,12 @@ public class Booking {
     @Override
     public String toString() {
         return "Booking{" +
-                "bookingId=" + bookingId +
+                "bookingId='" + bookingId + '\'' +
                 ", bookingDateslot=" + bookingDateslot +
                 ", groundId='" + groundId + '\'' +
                 ", playerEmail='" + playerEmail + '\'' +
                 ", groundOwnerEmail='" + groundOwnerEmail + '\'' +
-                ", slotId=" + slotId +
+                ", slotId='" + slotId + '\'' +
                 ", pricePaid=" + pricePaid +
                 ", bookingStatus='" + bookingStatus + '\'' +
                 ", slotDate=" + slotDate +

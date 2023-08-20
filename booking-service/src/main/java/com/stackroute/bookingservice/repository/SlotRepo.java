@@ -15,4 +15,6 @@ public interface SlotRepo extends MongoRepository<Slot,Integer> {
     List<Slot> findByGroundIdAndSlotDate(String groundId, String slotDate);
     Optional<Slot> findById(int slotId);
 
+    Slot findBySlotId(String id);
+
 }

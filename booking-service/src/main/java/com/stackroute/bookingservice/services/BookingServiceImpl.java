@@ -27,8 +27,8 @@ public class BookingServiceImpl implements BookingService {
 
     @Override
     public Booking addAllBookingToBookingdb(Booking booking) throws BookingAlreadyFound {
-        boolean bookings = bookingRepo.existsById(booking.getBookingId());
-        if (bookings) {
+        Booking bookings = bookingRepo.findByBookingId(booking.getBookingId());
+        if (bookings!=null) {
             throw new BookingAlreadyFound("Booking is added succesfully");
         }
         return this.bookingRepo.save(booking);
@@ -36,12 +36,10 @@ public class BookingServiceImpl implements BookingService {
 
 
     @Override
-    public Booking getBookingById(int bookingId) {
-        Optional<Booking> bookings = bookingRepo.findById(bookingId);
-        if (bookings.isPresent()) {
-            Booking booking = bookings.get();
-            bookingRepo.findById(bookingId);
-            return booking;
+    public Booking getBookingById(String bookingId) {
+        Booking bookings = bookingRepo.findByBookingId(bookingId);
+        if (bookings!=null) {
+            return bookings;
         }
 
         throw new BookingIdNotFound("Booking to be deleted not Found");
@@ -74,14 +72,12 @@ public class BookingServiceImpl implements BookingService {
         throw new BookingOwnerEmailNotFound("Booking to be deleted not Found");
     }
     @Override
-    public Booking deleteBookingById(int bookingId) {
-        Optional<Booking> bookings = bookingRepo.findById(bookingId);
-        if (bookings.isPresent()) {
-            Booking booking = bookings.get();
-            bookingRepo.delete(booking);
-            return booking;
+    public Booking deleteBookingById(String bookingId) {
+        Booking bookings = bookingRepo.findByBookingId(bookingId);
+        if (bookings!=null) {
+            bookingRepo.delete(bookings);
+            return bookings;
         }
-
         throw new DeleteBookingIdNotFound("Booking to be deleted not Found");
     }
 
