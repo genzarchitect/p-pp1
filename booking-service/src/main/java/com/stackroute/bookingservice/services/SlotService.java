@@ -10,8 +10,8 @@ public interface SlotService {
     public List<Slot> getAllSlotFromRepo();
     public Slot addAllSlotTobookingdb(Slot slot);
     public List<Slot> getSlotsForGroundByDate(String groundId, String date);
-    public Slot getSlotById(int slotId);
+    public Slot getSlotById(String slotId);
     public Slot getSlotByDate(String slotDate);
-    public Slot updateSlotById(int slotId,Slot updatedslot);
-    public Slot bookSlot(int slotId);
+    public Slot updateSlotById(String slotId,Slot updatedslot);
+    public Slot bookSlot(String slotId);
 }

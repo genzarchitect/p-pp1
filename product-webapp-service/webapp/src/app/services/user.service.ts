@@ -1,19 +1,25 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
+import { User } from '../model/user';
 
 @Injectable({
   providedIn: 'root'
 })
 export class UserService {
-  private apiUrl = ''; // need to add api
-
+  private apiUrl = 'http://localhost:8002/User'; 
   constructor(private http: HttpClient) { }
 
-  getUsers(): Observable<any[]> {
-    return this.http.get<any[]>(`${this.apiUrl}/users`);
-  }
-    updateUserDetails(user: any): Observable<any> {
-      return this.http.put<any>(`${this.apiUrl}/api/users/${user.id}`, user);
+  saveDetails(user: User) :Observable<any[]>{
+    return this.http.put<any[]>(`${this.apiUrl}/userList/{userEmail}/${user.userEmail}`, user);
     }
+  
+  getUserByEmail(UserEmail: String) : Observable<any[]> {
+    return this.http.get<any[]>(`${this.apiUrl}/userList/${UserEmail}`);
   }
+
+  // updateUserDetails(user: User): Observable<any> {
+  //     return this.http.put<any>(`${this.apiUrl}/userList/{userEmail}/${user.userEmail}`, user);
+  //   }
+  // }
+}

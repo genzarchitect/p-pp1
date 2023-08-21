@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup } from '@angular/forms';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import{UserService} from '../services/user.service';
+import { User } from '../model/user';
 
 @Component({
   selector: 'app-profile',
@@ -9,15 +10,34 @@ import{UserService} from '../services/user.service';
 })
 export class ProfileComponent implements OnInit {
   userForm!: FormGroup;
-  constructor(private formBuilder: FormBuilder,private userService: UserService) {}
-
-  ngOnInit(): void {
-    this.userForm = this.formBuilder.group({});
-  }
-
-  user = { userName: 'jai', userEmail: 'ab',userMobile: '232',userGender: 'm',userAddress: 'bangalore', };
+  public  user: User= new User();
+  public newUser : any[]=[];
+  userEmail:String| null = null;
+  
   isEditing = false;
 
+  constructor(private formBuilder: FormBuilder,private userService: UserService) {}
+  
+
+
+  ngOnInit(): void {
+    
+    this.userForm = this.formBuilder.group({
+      userName: ['', Validators.required],
+      userEmail: ['', Validators.email],
+      userMobile: ['', Validators.required],
+      userGender: ['', Validators.required],
+      userAddress: ['', Validators.required]
+    });
+  
+    this.userService.getUserByEmail("abc@gmail.com").subscribe((data:any)=>{
+      console.log(data);
+      data.forEach((element:any) => {
+        this.newUser.push(element);
+        console.log(this.newUser);       
+      });
+    })
+  }
   
 
   editDetails() {
@@ -25,20 +45,21 @@ export class ProfileComponent implements OnInit {
     this.isEditing = true;
   }
 
-  saveDetails() {
-    if (this.userForm.valid) {
-      this.userService.updateUserDetails(this.user).subscribe(
-        () => {
-          console.log('User details saved:', this.user);
-          this.isEditing = false;
-        },
-        (error: any) => {
-          console.error('Error saving user details:', error);
-          
-        }
-      );
-    }
+  getUserByEmail(UserEmail:String){
+  {
+    this.userService.getUserByEmail(UserEmail).subscribe((data: any)=>
+    console.log("User names",data));
+  }
+  }
+  
+  saveDetails(data:User) {
+    this.userService.saveDetails(data).subscribe((d: any)=>
+    console.log("Details saved",d));
+
+    
   }
   
 
 }
+
+
