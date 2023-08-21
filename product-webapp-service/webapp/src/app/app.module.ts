@@ -1,6 +1,6 @@
 import { FormsModule } from '@angular/forms';
 import { MbscModule } from '@mobiscroll/angular';
-import { NgModule } from '@angular/core';
+import { CUSTOM_ELEMENTS_SCHEMA, NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 
 import { AppRoutingModule } from './app-routing.module';
@@ -24,6 +24,9 @@ import { SlotComponent } from './slot/slot.component';
 import { DropdownComponent } from './dropdown/dropdown.component';
 import { ProfileComponent } from './profile/profile.component';
 import { GroundOwnerComponent } from './ground-owner/ground-owner.component';
+import { OrderhistoryComponent } from './orderhistory/orderhistory.component';
+import { OwnerhistoryComponent } from './ownerhistory/ownerhistory.component';
+
 
 
 @NgModule({
@@ -38,7 +41,9 @@ import { GroundOwnerComponent } from './ground-owner/ground-owner.component';
     GroundListComponent,
     DropdownComponent,
     ProfileComponent,
-    GroundOwnerComponent
+    GroundOwnerComponent,
+    OrderhistoryComponent,
+    OwnerhistoryComponent
   ],
 
   imports: [
@@ -59,5 +64,6 @@ import { GroundOwnerComponent } from './ground-owner/ground-owner.component';
   ],
   providers: [],
   bootstrap: [AppComponent],
+  schemas:[CUSTOM_ELEMENTS_SCHEMA]
 })
 export class AppModule {}
