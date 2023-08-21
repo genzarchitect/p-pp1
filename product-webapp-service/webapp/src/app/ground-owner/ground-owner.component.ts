@@ -57,7 +57,7 @@ export class GroundOwnerComponent implements OnInit {
                   console.log('Image uploaded successfully');
                   alert('Ground added successfully!');
                 },
-                (error) => console.error('Error uploading image', error)
+                (error:any) => console.error('Error uploading image', error)
               );
           } else if (response && response.groundId) {
             alert('Ground added successfully, but no image was uploaded.');

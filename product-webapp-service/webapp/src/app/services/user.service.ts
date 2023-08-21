@@ -7,7 +7,7 @@ import { User } from '../model/user';
   providedIn: 'root'
 })
 export class UserService {
-  private apiUrl = 'http://localhost:7777/User'; 
+  private apiUrl = 'http://localhost:8002/User'; 
   constructor(private http: HttpClient) { }
 
   saveDetails(email:String,user: User) :Observable<any[]>{

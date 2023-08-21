@@ -10,6 +10,6 @@ export class SignupformService {
   constructor(private http:HttpClient) { }
 
   public save(user:User){
-    return this.http.post("http://localhost:8087/User/addUser",user);
+    return this.http.post("http://localhost:8002/User/addUser",user);
   }
 }

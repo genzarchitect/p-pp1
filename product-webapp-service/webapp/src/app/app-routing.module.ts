@@ -7,6 +7,9 @@ import { GroundListComponent } from './ground-list/ground-list.component'; // Im
 import { ArenaDetailsComponent } from './arena-details/arena-details.component';
 import { ProfileComponent } from './profile/profile.component';
 
+import { GroundOwnerComponent } from './ground-owner/ground-owner.component';
+import { OrderhistoryComponent } from './orderhistory/orderhistory.component';
+import { OwnerhistoryComponent } from './ownerhistory/ownerhistory.component';
 
 const routes: Routes = [
   { path: '', component: ArenaDetailsComponent },
@@ -16,7 +19,10 @@ const routes: Routes = [
   {path:'login', component:LoginComponent},
   {path:'signup', component:SignupComponent},
   {path:'slot',component:SlotComponent},
-  {path:'profile',component:ProfileComponent}
+  {path:'profile',component:ProfileComponent},
+  { path: 'addground', component: GroundOwnerComponent },
+  {path:'playerdetails',component:OrderhistoryComponent},
+  {path:'bookings',component:OwnerhistoryComponent}
 ];
 
 @NgModule({

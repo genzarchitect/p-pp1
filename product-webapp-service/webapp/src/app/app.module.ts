@@ -1,6 +1,6 @@
 import { FormsModule } from '@angular/forms';
 import { MbscModule } from '@mobiscroll/angular';
-import { NgModule } from '@angular/core';
+import { CUSTOM_ELEMENTS_SCHEMA, NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 
 import { AppRoutingModule } from './app-routing.module';
@@ -23,6 +23,10 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { SlotComponent } from './slot/slot.component';
 
 import { ProfileComponent } from './profile/profile.component';
+import { GroundOwnerComponent } from './ground-owner/ground-owner.component';
+import { OrderhistoryComponent } from './orderhistory/orderhistory.component';
+import { OwnerhistoryComponent } from './ownerhistory/ownerhistory.component';
+
 
 
 @NgModule({
@@ -35,7 +39,10 @@ import { ProfileComponent } from './profile/profile.component';
     ArenaDetailsComponent,
     GroundListComponent,
 
-    ProfileComponent
+    ProfileComponent,
+    GroundOwnerComponent,
+    OrderhistoryComponent,
+    OwnerhistoryComponent
   ],
 
   imports: [
@@ -55,5 +62,6 @@ import { ProfileComponent } from './profile/profile.component';
   ],
   providers: [],
   bootstrap: [AppComponent],
+  schemas:[CUSTOM_ELEMENTS_SCHEMA]
 })
 export class AppModule {}
