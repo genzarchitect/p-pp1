@@ -21,12 +21,12 @@ public class Ground {
     private String categories;
     private String openingTime;
     private String closingTime;
-    private int pricePerHour;
+    private int pricePerSlot;
 
     public Ground() {
     }
 
-    public Ground(String groundName, String groundId, Address groundAddress, String groundEquipments, String groundImage, String groundOwnerEmail, Status status, String categories, String openingTime, String closingTime, int pricePerHour) {
+    public Ground(String groundName, String groundId, Address groundAddress, String groundEquipments, String groundImage, String groundOwnerEmail, Status status, String categories, String openingTime, String closingTime, int pricePerSlot) {
         this.groundName = groundName;
         this.groundId = groundId;
         this.groundAddress = groundAddress;
@@ -37,7 +37,7 @@ public class Ground {
         this.categories = categories;
         this.openingTime = openingTime;
         this.closingTime = closingTime;
-        this.pricePerHour = pricePerHour;
+        this.pricePerSlot = pricePerSlot;
     }
 
     public String getGroundName() {
@@ -120,12 +120,12 @@ public class Ground {
         this.closingTime = closingTime;
     }
 
-    public int getPricePerHour() {
-        return pricePerHour;
+    public int getPricePerSlot() {
+        return pricePerSlot;
     }
 
-    public void setPricePerHour(int pricePerHour) {
-        this.pricePerHour = pricePerHour;
+    public void setPricePerSlot(int pricePerSlot) {
+        this.pricePerSlot = pricePerSlot;
     }
 
     @Override
@@ -141,7 +141,7 @@ public class Ground {
                 ", categories='" + categories + '\'' +
                 ", openingTime='" + openingTime + '\'' +
                 ", closingTime='" + closingTime + '\'' +
-                ", pricePerHour=" + pricePerHour +
+                ", pricePerSlot=" + pricePerSlot +
                 '}';
     }
 }

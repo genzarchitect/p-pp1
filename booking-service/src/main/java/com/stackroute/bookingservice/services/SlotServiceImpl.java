@@ -29,30 +29,35 @@ public class SlotServiceImpl implements SlotService{
 
     @Override
     public Slot addAllSlotTobookingdb(Slot slot) throws SlotAlreadyFound{
-        Slot slots = slotRepo.findBySlotId(slot.getSlotId());
-        if (slots!=null) {
+        boolean slots = slotRepo.existsById(slot.getSlotId());
+        if (slots) {
             throw new SlotAlreadyFound("Slot is added succesfully");
         }
         return this.slotRepo.save(slot);
     }
 
     @Override
-    public Slot getSlotById(String slotId) {
-       Slot slots = slotRepo.findBySlotId(slotId);
-        if (slots!=null) {
-            return slots;
+    public Slot getSlotById(int slotId) {
+        Optional<Slot> slots = slotRepo.findById(slotId);
+        if (slots.isPresent()) {
+            Slot slot = slots.get();
+            slotRepo.findById(slotId);
+            return slot;
         }
+
         throw new BookingIdNotFound("slot not found");
     }
     
     @Override
-    public Slot bookSlot(String slotId) {
-        Slot slots = slotRepo.findBySlotId(slotId);
+    public Slot bookSlot(int slotId) {
+        Optional<Slot> slotOptional = slotRepo.findById(slotId);
 
-        if (slots!=null) {
-            if (slots.getNumberOfPlayers() > 0) {
-                slots.setNumberOfPlayers(slots.getNumberOfPlayers() - 1);
-                return slotRepo.save(slots);
+        if (slotOptional.isPresent()) {
+            Slot slot = slotOptional.get();
+
+            if (slot.getNumberOfPlayers() > 0) {
+                slot.setNumberOfPlayers(slot.getNumberOfPlayers() - 1);
+                return slotRepo.save(slot);
             } else {
                 throw new RuntimeException("Slot is fully booked");
             }
@@ -79,18 +84,20 @@ public class SlotServiceImpl implements SlotService{
     }
 
     @Override
-    public Slot updateSlotById(String slotId, Slot updatedslot) {
-        Slot slots = slotRepo.findBySlotId(slotId);
+    public Slot updateSlotById(int slotId, Slot updatedslot) {
+        Optional<Slot> existingslotopt = slotRepo.findById(slotId);
 
-        if (slots!=null) {
-            slots.setSlotId(updatedslot.getSlotId());
-            slots.setStatus(updatedslot.getStatus());
-            slots.setSlotDate(updatedslot.getSlotDate());
-            slots.setSlotStartTiming(updatedslot.getSlotStartTiming());
-            slots.setSlotEndTiming(updatedslot.getSlotEndTiming());
-            slots.setNumberOfPlayers(updatedslot.getNumberOfPlayers());
-            slotRepo.save(slots);
-            return slots;
+        if (existingslotopt.isPresent()) {
+            Slot existingslots = existingslotopt.get();
+            existingslots.setSlotId(updatedslot.getSlotId());
+            existingslots.setStatus(updatedslot.getStatus());
+            existingslots.setSlotDate(updatedslot.getSlotDate());
+            existingslots.setSlotStartTiming(updatedslot.getSlotStartTiming());
+            existingslots.setSlotEndTiming(updatedslot.getSlotEndTiming());
+            existingslots.setNumberOfPlayers(updatedslot.getNumberOfPlayers());
+
+            slotRepo.save(existingslots);
+            return existingslots;
         }
         throw new UpdateSlotNotFound("Please select the slot to update");
     }

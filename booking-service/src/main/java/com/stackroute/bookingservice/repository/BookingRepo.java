@@ -15,7 +15,5 @@ public interface BookingRepo extends MongoRepository<Booking,Integer> {
     @Query("Select s from Booking s where s.groundOwnerEmail")
     Optional<Booking> findByOEmail(String groundOwnerEmail);
 
-    Booking findByBookingId(String id);
-
 
 }

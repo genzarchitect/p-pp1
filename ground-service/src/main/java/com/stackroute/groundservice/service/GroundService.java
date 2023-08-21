@@ -9,7 +9,7 @@ import java.util.List;
 public interface GroundService {
 
    //Ground addGround(Ground ground, MultipartFile imageFile) throws IOException;
-   public boolean addGround(Ground ground);
+   public Ground addGround(Ground ground);
 
    public String addImageToGround(String groundId, MultipartFile file);
  public List<Ground> getAllGround();

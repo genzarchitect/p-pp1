@@ -11,7 +11,7 @@ import java.util.Date;
 public class Slot {
 
     @Id
-    private String slotId;
+    private int slotId;
     private String groundId;
     private String slotDate;
     private String slotStartTiming;
@@ -22,7 +22,7 @@ public class Slot {
     public Slot() {
     }
 
-    public Slot(String slotId, String groundId, String slotDate, String slotStartTiming, String slotEndTiming, String status, int numberOfPlayers) {
+    public Slot(int slotId, String groundId, String slotDate, String slotStartTiming, String slotEndTiming, String status, int numberOfPlayers) {
         this.slotId = slotId;
         this.groundId = groundId;
         this.slotDate = slotDate;
@@ -32,11 +32,11 @@ public class Slot {
         this.numberOfPlayers = numberOfPlayers;
     }
 
-    public String getSlotId() {
+    public int getSlotId() {
         return slotId;
     }
 
-    public void setSlotId(String slotId) {
+    public void setSlotId(int slotId) {
         this.slotId = slotId;
     }
 
@@ -91,7 +91,7 @@ public class Slot {
     @Override
     public String toString() {
         return "Slot{" +
-                "slotId='" + slotId + '\'' +
+                "slotId=" + slotId +
                 ", groundId='" + groundId + '\'' +
                 ", slotDate='" + slotDate + '\'' +
                 ", slotStartTiming='" + slotStartTiming + '\'' +

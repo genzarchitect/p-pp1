@@ -17,7 +17,7 @@ import org.springframework.web.bind.annotation.*;
 import java.time.LocalDateTime;
 
 @RestController
-@RequestMapping("/api/v2")
+@RequestMapping("/api/v1")
 @CrossOrigin(origins = "http://localhost:4200")
 public class PaymentController {
 
@@ -37,14 +37,12 @@ public class PaymentController {
 
 
 
-    @PostMapping("/payment")
-    @ResponseBody
-    public String createPayment(@RequestParam("amount") String data) throws RazorpayException {
-
-        int amt=Integer.parseInt(data)*100;
+    @PostMapping(value = "/payment/{amount}", produces = "application/json")
+    public ResponseEntity<String> createPayment(@PathVariable String amount) throws RazorpayException {
+        int amt = Integer.parseInt(amount) * 100;
         RazorpayClient client = new RazorpayClient(apiKey, apiSecret);
         String receipt = RandomStringUtils.randomNumeric(6);
-        JSONObject ob=new JSONObject();
+        JSONObject ob = new JSONObject();
 
         ob.put("amount", amt);
         ob.put("currency", "INR");
@@ -52,20 +50,7 @@ public class PaymentController {
 
         Order order = client.orders.create(ob);
 
-        PaymentDetails paymentDetails = new PaymentDetails();
-        String amount = order.get("amount").toString();
-        int amount_int  = Integer.valueOf(amount)/100;
-
-        paymentDetails.setOrderId(order.get("id").toString());
-        paymentDetails.setAmount(String.valueOf(amount_int));
-        paymentDetails.setReceipt(order.get("receipt").toString());
-        paymentDetails.setStatus(order.get("status").toString());
-        paymentDetails.setCurrency(order.get("currency").toString());
-        paymentDetails.setLocalDateTime(LocalDateTime.now());
-        paymentDetails.setBookingId(order.get("receipt").toString());
-        paymentService.saveOnePayment(paymentDetails);
-      //  System.out.println(order.get("amount").toString());
-        return order.toString();
+        return ResponseEntity.ok(order.toString());
     }
 
     // For getting payment by order-id
@@ -75,10 +60,16 @@ public class PaymentController {
 
     }
 
-    @PatchMapping("/updateorder")
-    public ResponseEntity<?> updateOrderWithBookingId(@RequestParam String id,@RequestParam String bookingId ){
-        return new ResponseEntity<>(paymentService.updateOrderWithBookingId(id, bookingId), HttpStatus.OK);
+//    @PatchMapping("/updateorder")
+//    public ResponseEntity<?> updateOrderWithBookingId(@RequestParam String id,@RequestParam String bookingId ){
+//        return new ResponseEntity<>(paymentService.updateOrderWithBookingId(id, bookingId), HttpStatus.OK);
+//
+//    }
 
+    @PostMapping("/savepaymentresponse")
+    public ResponseEntity<?> savePaymentResponse(@RequestBody PaymentDetails paymentDetails) {
+        paymentService.saveOnePayment(paymentDetails);
+        return new ResponseEntity<>(HttpStatus.OK);
     }
 
 //    @PostMapping("/createOrder")
