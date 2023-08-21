@@ -4,23 +4,23 @@
     <form #userForm="ngForm">
       <div class="form-group">
         <label for="name">Name:</label>
-        <input type="text" id="userName" name="userName" [(ngModel)]="user.userName" required [disabled]="!isEditing">
+        <input type="text" id="userName" name="userName" [(ngModel)]="newUser.userName" required [disabled]="!isEditing">
       </div>
       <div class="form-group">
         <label for="email">Email:</label>
-        <input type="email" id="userEmail" name="userEmail" [(ngModel)]="user.userEmail" required [disabled]="true">
+        <input type="email" id="userEmail" name="userEmail" [(ngModel)]="newUser.userEmail" required [disabled]="true">
       </div>
       <div class="form-group">
         <label for="mobile">Mobile:</label>
-        <input type="mobile" id="userMobile" name="userMobile" [(ngModel)]="user.userMobile" required [disabled]="!isEditing">
+        <input type="mobile" id="userMobile" name="userMobile" [(ngModel)]="newUser.userMobile" required [disabled]="!isEditing">
       </div>
       <div class="form-group">
         <label for="gender">Gender:</label>
-        <input type="gender" id="userGender" name="userGender" [(ngModel)]="user.userGender" required [disabled]="!isEditing">
+        <input type="gender" id="userGender" name="userGender" [(ngModel)]="newUser.userGender" required [disabled]="!isEditing">
       </div>
       <div class="form-group">
-        <label for="address">Address:</label>
-        <input type="address" id="userAddress" name="userAddress" [(ngModel)]="user.userAddress" required [disabled]="!isEditing">
+        <label for="address">Location:</label>
+        <input type="address" id="userLocation" name="userLocation" [(ngModel)]="newUser.userLocation" required [disabled]="!isEditing">
       </div>
     <button *ngIf="!isEditing" type="button" class="btn btn-primary btn-block mt-4 w-100"(click)="editDetails()">Edit Details</button>
     <button *ngIf="isEditing" type="button"class="btn btn-primary btn-block mt-4 w-100" (click)="saveDetails(userForm.value)" [disabled]="!userForm.valid">Save Details</button>

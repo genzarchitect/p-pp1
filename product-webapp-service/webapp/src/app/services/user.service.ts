@@ -7,11 +7,11 @@ import { User } from '../model/user';
   providedIn: 'root'
 })
 export class UserService {
-  private apiUrl = 'http://localhost:8002/User'; 
+  private apiUrl = 'http://localhost:7777/User'; 
   constructor(private http: HttpClient) { }
 
-  saveDetails(user: User) :Observable<any[]>{
-    return this.http.put<any[]>(`${this.apiUrl}/userList/{userEmail}/${user.userEmail}`, user);
+  saveDetails(email:String,user: User) :Observable<any[]>{
+    return this.http.put<any[]>(`${this.apiUrl}/userList/${email}`, user);
     }
   
   getUserByEmail(UserEmail: String) : Observable<any[]> {
