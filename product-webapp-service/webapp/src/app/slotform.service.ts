@@ -10,12 +10,12 @@ export class SlotformService {
   constructor(private http:HttpClient) { }
 
   public save(slot:Slot){
-    return this.http.post("http://localhost:8090/slot/addslot",slot);
+    return this.http.post("http://localhost:8003/slot/addslot",slot);
   }
 
   public getGroundByEmail(groundOwnerEmail:string)
   {
-    return this.http.get("http://localhost:8087/api/v1/ground/"+groundOwnerEmail);
+    return this.http.get("http://localhost:8001/api/v1/ground/"+groundOwnerEmail);
   }
 
 }

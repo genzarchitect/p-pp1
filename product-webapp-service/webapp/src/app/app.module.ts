@@ -21,7 +21,7 @@ import { SignupComponent } from './signup/signup.component';
 import { ReactiveFormsModule } from '@angular/forms';
 
 import { SlotComponent } from './slot/slot.component';
-import { DropdownComponent } from './dropdown/dropdown.component';
+
 import { ProfileComponent } from './profile/profile.component';
 import { GroundOwnerComponent } from './ground-owner/ground-owner.component';
 
@@ -36,7 +36,6 @@ import { GroundOwnerComponent } from './ground-owner/ground-owner.component';
     NavbarComponent,
     ArenaDetailsComponent,
     GroundListComponent,
-    DropdownComponent,
     ProfileComponent,
     GroundOwnerComponent
   ],

@@ -16,12 +16,12 @@ public class User {
     @Id
     private String userEmail;
     private String userPassword;
-    private List<UserLocation> userLocation;
+    private String userLocation;
 
     public User() {
     }
 
-    public User(String userName, String userMobile, String userGender, UserType userType, String userEmail, String userPassword, List<UserLocation> userLocation) {
+    public User(String userName, String userMobile, String userGender, UserType userType, String userEmail, String userPassword, String userLocation) {
         this.userName = userName;
         this.userMobile = userMobile;
         this.userGender = userGender;
@@ -79,11 +79,11 @@ public class User {
         this.userPassword = userPassword;
     }
 
-    public List<UserLocation> getUserLocation() {
+    public String getUserLocation() {
         return userLocation;
     }
 
-    public void setUserLocation(List<UserLocation> userLocation) {
+    public void setUserLocation(String userLocation) {
         this.userLocation = userLocation;
     }
 
