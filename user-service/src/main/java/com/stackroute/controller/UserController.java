@@ -34,7 +34,7 @@ public class UserController {
         return responseEntity;
     }
 
-
+    @CrossOrigin(origins = "*")
     @PostMapping("/addUser")
     public ResponseEntity<?> addUsers(@RequestBody User user) throws UserAlreadyExistsException {
         try

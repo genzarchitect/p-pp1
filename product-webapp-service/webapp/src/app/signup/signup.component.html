@@ -53,7 +53,27 @@
                                 <small class='error-message' *ngIf="userType.errors?.['required']" > User Role is mandatory</small>
 
                             </div>
-                            
+                            <!--<div class="form-group pt-3">
+                                <div class="input-field">
+                                    <span class="fa fa-id-badge p-2"></span>
+                                    <input #userType='ngModel' [class.error-border]='userType.dirty'
+                                     required [(ngModel)]='newUser.userType' name='userType' placeholder="User Role (Owner/Player)">
+                                     <label for="">User Role</label>
+                                     <select id="userType">
+                                        
+                                <option value="option1">Owner</option>
+                                <option value="option2">Player</option>
+                                     </select>
+
+                                </div>
+                            </div>-->
+                                
+                                <!--<div *ngIf='userType.errors && userType.dirty'>
+                                    <small class='error-message' *ngIf="userType.errors?.['required']" > User Role is mandatory</small>
+    
+                                </div>-->
+
+
                             <!--Owner: <input type="radio" name="Owner1">
                             Player: <input type="radio" name="Player1">
 

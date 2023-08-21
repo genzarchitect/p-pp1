@@ -21,7 +21,7 @@ export class SlotComponent implements OnInit{
 
 
   ngOnInit(): void {
-    this.slotformService.getGroundByEmail("abc").subscribe((data:any)=>{
+    this.slotformService.getGroundByEmail("shiksha@gmail.com").subscribe((data:any)=>{
       console.log(data);
       data.forEach((element:any) => {
         this.newGround.push(element);

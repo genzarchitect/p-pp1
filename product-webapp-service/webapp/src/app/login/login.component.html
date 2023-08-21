@@ -31,7 +31,7 @@
                             <small class='error-message' *ngIf="password.errors?.['required']" > Password is mandatory</small>
                             <small class='error-message' *ngIf="password.errors?.['pattern']" > Must contain at least one  number, one uppercase and lowercase letter and at least 8 or more characters</small>
                           </div>
-                          <button type="submit" class="btn btn-primary btn-block mt-4 w-100">Sign In</button>
+                          <button type="submit" class="btn btn-primary btn-block mt-4 w-100" [disabled]="loginForm.form.invalid">Sign In</button>
                           
                           <div class="text-center pt-4 text-muted">Don't have account? <a id="forget" routerLink="/signup">Sign Up</a></div>
                       </form>

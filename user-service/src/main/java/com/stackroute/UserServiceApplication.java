@@ -1,4 +1,4 @@
-<<<<<<< HEAD
+
 package com.stackroute;
 
 import org.springframework.boot.SpringApplication;
