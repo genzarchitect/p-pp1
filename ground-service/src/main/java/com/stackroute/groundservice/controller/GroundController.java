@@ -21,10 +21,7 @@ import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 
 import java.io.IOException;
-import java.util.Collections;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 @RestController
 @RequestMapping("/api/v1")
@@ -58,25 +55,19 @@ public class GroundController {
     @PostMapping("/addground")
     public ResponseEntity<?> addGround(@RequestBody Ground ground){
         try {
-            Ground addedGround = groundService.addGround(ground);
-            if(addedGround != null){
-                return new ResponseEntity<>(addedGround, HttpStatus.CREATED);
+            if(groundService.addGround(ground)){
+                responseEntity =  new ResponseEntity<>("Ground Addded",HttpStatus.CREATED);
             }
         }
         catch (GroundAlreadyExistsException e){
-            return new ResponseEntity<>("Ground Already Exists", HttpStatus.BAD_REQUEST);
+            responseEntity = new ResponseEntity<>("Ground Already Exists",HttpStatus.BAD_REQUEST);
         }
-        return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+        return responseEntity;
     }
-
     @PostMapping("/addImage/{groundId}")
-    public ResponseEntity<Map<String, String>> addImageToGround(@PathVariable String groundId, @RequestParam("file") MultipartFile file) {
-        String response = groundService.addImageToGround(groundId, file);
-        Map<String, String> responseBody = new HashMap<>();
-        responseBody.put("message", response);
-        return ResponseEntity.ok(responseBody);
+    public String addImageToGround(@PathVariable String groundId, @RequestParam("file") MultipartFile file) {
+        return groundService.addImageToGround(groundId, file);
     }
-
 
 
     //how will i get that ground on that page willthat be by ID;

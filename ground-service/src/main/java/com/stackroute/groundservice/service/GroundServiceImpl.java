@@ -23,11 +23,13 @@ public class GroundServiceImpl implements GroundService{
     GridFsService gridFsService;
 
     @Override
-    public Ground addGround(Ground ground) {
-        if(ground != null) {
-            return groundRepo.save(ground);
+    public boolean addGround(Ground ground) {
+        boolean check = false;
+        if(ground!=null){
+            groundRepo.save(ground);
+            check = true;
         }
-        return null;
+        return check;
     }
 
     public String addImageToGround(String groundId, MultipartFile file) {
@@ -135,7 +137,7 @@ public class GroundServiceImpl implements GroundService{
         existingGround.setGroundOwnerEmail(updatedGround.getGroundOwnerEmail());
         existingGround.setGroundAddress(updatedGround.getGroundAddress());
         existingGround.setGroundImage(updatedGround.getGroundImage());
-        existingGround.setPricePerSlot(updatedGround.getPricePerSlot());
+        existingGround.setPricePerHour(updatedGround.getPricePerHour());
         groundRepo.save(existingGround);
         return existingGround;
     }

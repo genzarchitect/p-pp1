@@ -40,7 +40,7 @@ public class SlotController {
 
     @CrossOrigin(origins = "*")
     @PostMapping("/slot/book/{slotId}")
-    public ResponseEntity<Slot> bookSlot(@PathVariable int slotId) {
+    public ResponseEntity<Slot> bookSlot(@PathVariable String slotId) {
         Slot updatedSlot = slotService.bookSlot(slotId);
         return ResponseEntity.ok(updatedSlot);
     }
@@ -65,7 +65,7 @@ public class SlotController {
 
 
     @GetMapping("/getslot/{slotId}")
-    public ResponseEntity<?> getSlotI(@PathVariable("slotId") int slotId){
+    public ResponseEntity<?> getSlotI(@PathVariable("slotId") String slotId){
         try {
             Slot gslot = slotService.getSlotById(slotId);
             responseEntity = new ResponseEntity<>(gslot, HttpStatus.ACCEPTED);
@@ -76,7 +76,7 @@ public class SlotController {
     }
 
     @GetMapping("/getslotg/{groundId}")
-    public ResponseEntity<?> getSlotG(@PathVariable("groundId") int groundId){
+    public ResponseEntity<?> getSlotG(@PathVariable("groundId") String groundId){
         try {
             Slot gIslot = slotService.getSlotById(groundId);
             responseEntity = new ResponseEntity<>(gIslot, HttpStatus.ACCEPTED);
@@ -103,7 +103,7 @@ public class SlotController {
 //        return meetingRoomServiceLocal.checkMeetingRoomAvailability(begin, end, capacity);
 //    }
     @PutMapping("/update/{slotId}")
-    public ResponseEntity<?> updateSlot(@PathVariable("slotId") int slotId,@RequestBody Slot slot){
+    public ResponseEntity<?> updateSlot(@PathVariable("slotId") String slotId,@RequestBody Slot slot){
         try{
             Slot uslot = slotService.updateSlotById(slotId, slot);
             responseEntity=new ResponseEntity<>(uslot,HttpStatus.ACCEPTED);
