@@ -98,6 +98,7 @@ export class ArenaDetailsComponent implements OnInit {
   isSlotBooked(slot: Slot): boolean {
     return slot.numberOfPlayers === 0;
   }
+  
   initiatePayment(amount: number): void {
     this.paymentService.createPayment(amount).subscribe(
       (response) => {
